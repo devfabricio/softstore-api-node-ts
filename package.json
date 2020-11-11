@@ -5,25 +5,37 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "dev:server": "ts-node-dev --ignore-watch node_modules src/server.ts"
+    "dev:server": "ts-node-dev --ignore-watch node_modules src/server.ts",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
     "express": "^4.17.1",
-    "ts-node-dev": "^1.0.0"
+    "mongodb": "^3.6.3",
+    "ts-node-dev": "^1.0.0",
+    "typeorm": "^0.2.29"
   },
   "devDependencies": {
     "@types/express": "^4.17.8",
-    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^14.14.7",
+    "@typescript-eslint/eslint-plugin": "4",
     "@typescript-eslint/parser": "^4.7.0",
-    "eslint": "^7.13.0",
+    "eslint": "7",
     "eslint-config-prettier": "^6.15.0",
     "eslint-config-standard": "^16.0.1",
+    "eslint-config-standard-with-typescript": "^19.0.1",
     "eslint-import-resolver-typescript": "^2.3.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-import": "2",
+    "eslint-plugin-node": "11",
     "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-promise": "4",
+    "eslint-plugin-standard": "4",
+    "git-commit-msg-linter": "^3.0.0",
+    "husky": "^4.3.0",
+    "jest": "^26.6.3",
+    "lint-staged": "^10.5.1",
     "prettier": "^2.1.2",
+    "ts-jest": "^26.4.4",
     "typescript": "^4.0.5"
   }
 }
