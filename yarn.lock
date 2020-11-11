@@ -555,6 +555,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/bcryptjs@^2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@types/bcryptjs/-/bcryptjs-2.4.2.tgz#e3530eac9dd136bfdfb0e43df2c4c5ce1f77dfae"
+  integrity sha512-LiMQ6EOPob/4yUL66SZzu6Yh77cbzJFYll+ZfaPiPPFswtIlA/Fs1MzdKYA7JApHU49zQTbJGX3PDmCpIdDBRQ==
+
 "@types/body-parser@*":
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.19.0.tgz"
@@ -638,14 +643,9 @@
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.3.tgz"
   integrity sha512-Jus9s4CDbqwocc5pOAnh8ShfrnMcPHuJYzVcSUU7lrh8Ni5HuIqX3oilL86p3dlTrk0LzHRCgA/GQ7uNCw6l2Q==
 
-"@types/node@*":
+"@types/node@*", "@types/node@^14.14.7":
   version "14.14.7"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.7.tgz"
-  integrity sha512-Zw1vhUSQZYw+7u5dAwNbIA9TuTotpzY/OF7sJM9FqPOF3SPjKnxrjoTktXDZgUjybf4cWVBP7O8wvKdSaGHweg==
-
-"@types/node@^14.14.7":
-  version "14.14.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.7.tgz#8ea1e8f8eae2430cf440564b98c6dfce1ec5945d"
   integrity sha512-Zw1vhUSQZYw+7u5dAwNbIA9TuTotpzY/OF7sJM9FqPOF3SPjKnxrjoTktXDZgUjybf4cWVBP7O8wvKdSaGHweg==
 
 "@types/normalize-package-data@^2.4.0":
@@ -1105,6 +1105,11 @@ bcrypt-pbkdf@^1.0.0:
   integrity sha1-pDAdOJtqQ/m2f/PKEaP2Y342Dp4=
   dependencies:
     tweetnacl "^0.14.3"
+
+bcryptjs@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
+  integrity sha1-mrVie5PmBiH/fNrF2pczAn3x0Ms=
 
 binary-extensions@^2.0.0:
   version "2.1.0"
