@@ -1,6 +1,7 @@
 import { getRepository } from 'typeorm'
 import { User } from '../models/user'
 import { compare } from 'bcryptjs'
+import { sign } from 'jsonwebtoken'
 
 interface Request {
   email: string
@@ -9,6 +10,7 @@ interface Request {
 
 interface Response {
   user: User
+  token: string
 }
 
 export class AuthenticationService {
@@ -25,6 +27,13 @@ export class AuthenticationService {
       throw new Error('Invalid credentials')
     }
 
-    return { user }
+    const userId = user.id.toString()
+
+    const token = sign({}, 'd2efc1f9e9409e902919b3dbe6ccbeaa', {
+      subject: userId,
+      expiresIn: '30d'
+    })
+
+    return { user, token }
   }
 }

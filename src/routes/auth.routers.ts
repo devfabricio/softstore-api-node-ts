@@ -7,9 +7,9 @@ authRouter.post('/', async (req, res) => {
   try {
     const { email, password } = req.body
     const authentication = new AuthenticationService()
-    const { user } = await authentication.execute({ email, password })
+    const { user, token } = await authentication.execute({ email, password })
     delete user.password
-    return res.json(user)
+    return res.json({ user, token })
   } catch (error) {
     res.status(400).json({ error: error.message })
   }
