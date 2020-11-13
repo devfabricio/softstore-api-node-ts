@@ -14,6 +14,36 @@ export class User {
   @Column()
   password: string
 
+  @Column()
+  phone: string
+
+  @Column()
+  profileImg: string
+
+  @Column()
+  state: string
+
+  @Column()
+  city: string
+
+  @Column()
+  neighborhood: string
+
+  @Column()
+  street: string
+
+  @Column()
+  number: string
+
+  @Column()
+  complement: string
+
+  @Column()
+  reference: string
+
+  @Column()
+  zipcode: string
+
   @CreateDateColumn()
   createdAt: Date
 

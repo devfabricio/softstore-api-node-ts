@@ -2,10 +2,11 @@ import { Router } from 'express'
 import { CreateUserService } from '../services/create-user-service'
 import { getRepository } from 'typeorm'
 import { User } from '../models/user'
+import { isAuth } from '../middlewares/is-auth'
 
 const usersRouter = Router()
 
-usersRouter.get('/', async (req, res) => {
+usersRouter.get('/', isAuth, async (req, res) => {
   const userRepository = getRepository(User)
   const users = await userRepository.find()
   res.status(200).json(users)
