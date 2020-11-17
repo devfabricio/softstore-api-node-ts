@@ -1,5 +1,4 @@
 import { Column, CreateDateColumn, Entity, ObjectID, ObjectIdColumn, UpdateDateColumn } from 'typeorm'
-import { Product } from './product'
 
 @Entity()
 export class ProductCategory {
@@ -7,10 +6,7 @@ export class ProductCategory {
   id: ObjectID
 
   @Column()
-  category: string
-
-  @Column()
-  product: Product
+  name: string
 
   @CreateDateColumn()
   createdAt: Date
