@@ -8,6 +8,21 @@
         "@typescript-eslint/consistent-type-definitions": "off",
         "@typescript-eslint/comma-spacing": "off",
         "@typescript-eslint/return-await": "off",
-        "@typescript-eslint/method-signature-style": "off"
+        "@typescript-eslint/no-throw-literal": "off",
+        "@typescript-eslint/method-signature-style": "off",
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "selector": "interface",
+                "format": ["PascalCase"],
+                "custom": {
+                    "regex": "^I[A-Z]",
+                    "match": true
+                }
+            }
+        ],
+        "@typescript-eslint/no-unused-vars": ["error", {
+            "argsIgnorePattern": "_"
+        }]
     }
 }

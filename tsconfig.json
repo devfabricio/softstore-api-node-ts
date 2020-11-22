@@ -1,13 +1,17 @@
-{
-  "compilerOptions": {
+{"compilerOptions": {
     "outDir": "./dist",
     "module": "commonjs",
     "target": "ES2019",
     "esModuleInterop": true,
     "allowJs": true,
-    "rootDir": "./src",/* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
-    "experimentalDecorators": true, /* Enables experimental support for ES7 decorators. */
-    "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */
-
+    "rootDir": "./src",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@modules/*": ["modules/*"],
+      "@config/*": ["config/*"],
+      "@shared/*": ["shared/*"]
+    }
   }
 }
