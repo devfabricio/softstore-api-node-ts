@@ -1,4 +1,4 @@
-import IUserRepository from '@modules/users/protocols/user-repository'
+import IUserRepository from '@modules/users/protocols/i-user-repository'
 import { User } from '@modules/users/infra/typeorm/entities/user'
 import ICreateUserDTO from '@modules/users/dtos/i-create-user-dto'
 
@@ -14,5 +14,15 @@ export class FakeUserRepository implements IUserRepository {
 
   public async findByEmail (email: string): Promise<User> {
     return this.users.find(user => user.email === email)
+  }
+
+  async findById (id: string): Promise<User> {
+    return this.users.find(user => user.id.toString() === id)
+  }
+
+  async save (user: User): Promise<User> {
+    const findIndex = this.users.findIndex(findUser => findUser.id === user.id)
+    this.users[findIndex] = user
+    return user
   }
 }

@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import { User } from '../infra/typeorm/entities/user'
 import { inject, injectable } from 'tsyringe'
 import AppError from '@shared/errors/app-error'
-import IUserRepository from '@modules/users/protocols/user-repository'
+import IUserRepository from '@modules/users/protocols/i-user-repository'
 import IBcryptAdapter from '@shared/infra/adapters/protocols/i-bcrypt-adapter'
 import IEmailValidatorAdapter from '@shared/infra/adapters/protocols/i-email-validator-adapter'
 
