@@ -2,7 +2,7 @@ import { sign } from 'jsonwebtoken'
 import { inject, injectable } from 'tsyringe'
 import { User } from '@modules/users/infra/typeorm/entities/user'
 import AppError from '@shared/errors/app-error'
-import IUserRepository from '@modules/users/protocols/user-repository'
+import IUserRepository from '@modules/users/protocols/i-user-repository'
 import IBcryptAdapter from '@shared/infra/adapters/protocols/i-bcrypt-adapter'
 
 interface IResponse {
