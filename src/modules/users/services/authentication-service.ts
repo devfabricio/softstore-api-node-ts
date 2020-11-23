@@ -1,14 +1,9 @@
-import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 import { inject, injectable } from 'tsyringe'
 import { User } from '@modules/users/infra/typeorm/entities/user'
 import AppError from '@shared/errors/app-error'
 import IUserRepository from '@modules/users/protocols/user-repository'
-
-interface IRequest {
-  email: string
-  password: string
-}
+import IBcryptAdapter from '@shared/infra/adapters/protocols/i-bcrypt-adapter'
 
 interface IResponse {
   user: User
@@ -19,14 +14,22 @@ interface IResponse {
 export class AuthenticationService {
   constructor (
     @inject('UserRepository')
-    private readonly usersRepository: IUserRepository) {}
+    private readonly usersRepository: IUserRepository,
+    @inject('BcryptAdapter')
+    private readonly bcryptAdapter: IBcryptAdapter) {}
 
-  async execute ({ email, password }: IRequest): Promise<IResponse> {
-    const user = await this.usersRepository.findByEmail(email)
+  async execute (body: any): Promise<IResponse> {
+    const requiredFields = ['email', 'password']
+    for (const field of requiredFields) {
+      if (!body[field]) {
+        throw new AppError(`Missing param: ${field}`)
+      }
+    }
+    const user = await this.usersRepository.findByEmail(body.email)
     if (!user) {
       throw new AppError('Invalid credentials', 401)
     }
-    const passwordIsValid = await compare(password, user.password)
+    const passwordIsValid = await this.bcryptAdapter.compare(body.password, user.password)
     if (!passwordIsValid) {
       throw new AppError('Invalid credentials', 401)
     }
