@@ -31,7 +31,7 @@ const makeSut = (): ISutTypes => {
 describe('SendForgotPasswordEmailService', () => {
   it('Should returns error if no email is provided', async () => {
     const { sut } = makeSut()
-    await expect(sut.execute({})).rejects.toBeInstanceOf(AppError)
+    await expect(sut.execute({})).rejects.toEqual(new AppError('Missing param: email'))
   })
   it('Should calls EmailValidator with correct e-mail', async () => {
     const { sut, userRepository, emailValidator } = makeSut()
@@ -51,13 +51,13 @@ describe('SendForgotPasswordEmailService', () => {
     jest.spyOn(emailValidator, 'isValid').mockReturnValueOnce(false)
     await expect(sut.execute({
       email: 'any_email@email.com'
-    })).rejects.toBeInstanceOf(AppError)
+    })).rejects.toEqual(new AppError('Invalid E-mail'))
   })
   it('Should returns error if cannot find a user with the email', async () => {
     const { sut } = makeSut()
     await expect(sut.execute({
       email: 'another_email@email.com'
-    })).rejects.toBeInstanceOf(AppError)
+    })).rejects.toEqual(new AppError('Email not registered'))
   })
   it('Should calls UserTokenRepository if user was found', async () => {
     const { sut, userRepository, userTokenRepository } = makeSut()

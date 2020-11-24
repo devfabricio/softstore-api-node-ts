@@ -2,11 +2,14 @@ import { inject, injectable } from 'tsyringe'
 import IUserRepository from '@modules/users/protocols/i-user-repository'
 import IUserTokenRepository from '@modules/users/protocols/i-user-token-repository'
 import AppError from '@shared/errors/app-error'
+import IBcryptAdapter from '@shared/infra/adapters/protocols/i-bcrypt-adapter'
 
 @injectable()
 export default class ResetPasswordService {
   constructor (@inject('UserRepository')
   private readonly usersRepository: IUserRepository,
+  @inject('BcryptAdapter')
+  private readonly bcryptAdapter: IBcryptAdapter,
   @inject('UserTokenRepository')
   private readonly userTokenRepository: IUserTokenRepository) {
   }
@@ -27,7 +30,7 @@ export default class ResetPasswordService {
     if (!user) {
       throw new AppError('Invalid request to reset password: user')
     }
-    user.password = password
+    user.password = await this.bcryptAdapter.hash(password)
     await this.usersRepository.save(user)
   }
 }

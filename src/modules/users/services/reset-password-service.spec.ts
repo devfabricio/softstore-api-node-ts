@@ -2,6 +2,7 @@ import { FakeUserRepository } from '@modules/users/infra/fakes/repositories/fake
 import AppError from '@shared/errors/app-error'
 import FakeUserTokenRepository from '@modules/users/infra/fakes/repositories/fake-user-token-repository'
 import ResetPasswordService from '@modules/users/services/reset-password-service'
+import FakeBcryptAdapter from '@shared/infra/adapters/fakes/fake-bcrypt-adapter'
 
 interface ISutTypes {
   sut: ResetPasswordService
@@ -12,7 +13,8 @@ interface ISutTypes {
 const makeSut = (): ISutTypes => {
   const userRepository = new FakeUserRepository()
   const userTokenRepository = new FakeUserTokenRepository()
-  const sut = new ResetPasswordService(userRepository, userTokenRepository)
+  const bcryptAdapter = new FakeBcryptAdapter()
+  const sut = new ResetPasswordService(userRepository, bcryptAdapter, userTokenRepository)
   return {
     sut,
     userTokenRepository,

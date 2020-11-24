@@ -5,9 +5,9 @@ import { container } from 'tsyringe'
 
 class ResetPasswordController implements IController {
   public async create (request: Request, response: Response): Promise<Response> {
-    const { email } = request.body
+    const { token, password } = request.body
     const resetPasswordService = container.resolve(ResetPasswordService)
-    await resetPasswordService.execute({ email })
+    await resetPasswordService.execute({ token, password })
     return response.status(204).json()
   }
 }

@@ -1,4 +1,4 @@
-import { Entity, ObjectID, ObjectIdColumn, Column, CreateDateColumn, Generated, UpdateDateColumn } from 'typeorm'
+import { Entity, ObjectID, ObjectIdColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 
 @Entity()
 class UserToken {
@@ -6,7 +6,6 @@ class UserToken {
   id: ObjectID
 
   @Column()
-  @Generated('uuid')
   token: string
 
   @Column()
