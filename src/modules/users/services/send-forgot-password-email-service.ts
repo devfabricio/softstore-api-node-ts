@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe'
+import path from 'path'
 import IUserRepository from '@modules/users/protocols/i-user-repository'
 import IEmailValidatorAdapter from '@shared/infra/adapters/protocols/i-email-validator-adapter'
 import IMailSenderAdapter from '@shared/infra/adapters/protocols/i-mail-sender-adapter'
@@ -31,6 +32,9 @@ export default class SendForgotPasswordEmailService {
       throw new AppError('Email not registered')
     }
     const { token } = await this.userTokenRepository.generate(user.id.toString())
+
+    const forgotPasswordTemplate = path.resolve('src/shared/views', 'forgot-password.hbs')
+
     await this.sendEmail.send({
       to: {
         name: user.name,
@@ -38,10 +42,10 @@ export default class SendForgotPasswordEmailService {
       },
       subject: '[Saboreio] Recuperação de senha',
       templateData: {
-        template: 'Olá, {{name}}: {{token}}',
+        file: forgotPasswordTemplate,
         variables: {
           name: user.name,
-          token: token
+          link: `http://localhost:3000/reset_password?token=${token}`
         }
       }
     })
