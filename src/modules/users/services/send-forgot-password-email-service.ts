@@ -11,7 +11,7 @@ export default class SendForgotPasswordEmailService {
   private readonly usersRepository: IUserRepository,
   @inject('EmailValidatorAdapter')
   private readonly emailValidator: IEmailValidatorAdapter,
-  @inject('SendEmailAdapter')
+  @inject('MailSenderAdapter')
   private readonly sendEmail: IMailSenderAdapter,
   @inject('UserTokenRepository')
   private readonly userTokenRepository: IUserTokenRepository) {
