@@ -1,3 +1,5 @@
+import ISendEmailDTO from '@shared/infra/adapters/dtos/i-send-email-dto'
+
 export default interface IMailSenderAdapter {
-  send(to: string, body: string): Promise<void>
+  send(data: ISendEmailDTO): Promise<void>
 }

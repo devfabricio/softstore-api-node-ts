@@ -30,8 +30,21 @@ export default class SendForgotPasswordEmailService {
     if (!user) {
       throw new AppError('Email not registered')
     }
-    const token = await this.userTokenRepository.generate(user.id.toString())
-    await this.sendEmail.send(body.email, `Um email legal sendo enviado ${token.token}`)
+    const { token } = await this.userTokenRepository.generate(user.id.toString())
+    await this.sendEmail.send({
+      to: {
+        name: user.name,
+        email: user.email
+      },
+      subject: '[Saboreio] Recuperação de senha',
+      templateData: {
+        template: 'Olá, {{name}}: {{token}}',
+        variables: {
+          name: user.name,
+          token: token
+        }
+      }
+    })
     return Promise.resolve()
   }
 }

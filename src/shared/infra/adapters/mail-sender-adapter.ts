@@ -1,14 +1,28 @@
 import nodemailer, { Transporter } from 'nodemailer'
+import { inject, injectable } from 'tsyringe'
 import IMailSenderAdapter from '@shared/infra/adapters/protocols/i-mail-sender-adapter'
+import ISendEmailDTO from '@shared/infra/adapters/dtos/i-send-email-dto'
+import IMailTemplateAdapter from '@shared/infra/adapters/protocols/i-mail-template-adapter'
 
+@injectable()
 export default class MailSenderAdapter implements IMailSenderAdapter {
-  async send (to: string, body: string): Promise<void> {
+  constructor (
+    @inject('MailTemplateAdapter')
+    private readonly mailTemplateAdapter: IMailTemplateAdapter) {}
+
+  async send ({ to, from, subject, templateData }: ISendEmailDTO): Promise<void> {
     const client = await this.getClient()
     const message = await client.sendMail({
-      from: 'Saboreio <contato@saboreio.com.br>',
-      to,
-      subject: 'Recuperação de senha',
-      text: body
+      from: {
+        name: from?.name || 'Equipe Saboreio',
+        address: from?.email || 'contato@saboreio.com.br'
+      },
+      to: {
+        name: to.name,
+        address: to.email
+      },
+      subject,
+      html: await this.mailTemplateAdapter.parse(templateData)
     })
     console.log('Message sent: %s', message.messageId)
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message))

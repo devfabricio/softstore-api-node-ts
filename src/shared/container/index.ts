@@ -9,9 +9,12 @@ import UserTokenRepository from '@modules/users/infra/typeorm/repositories/user-
 import IUserTokenRepository from '@modules/users/protocols/i-user-token-repository'
 import MailSenderAdapter from '@shared/infra/adapters/mail-sender-adapter'
 import IMailSenderAdapter from '@shared/infra/adapters/protocols/i-mail-sender-adapter'
+import MailTemplateAdapter from '@shared/infra/adapters/mail-template-adapter'
+import IMailTemplateAdapter from '@shared/infra/adapters/protocols/i-mail-template-adapter'
 
 container.registerSingleton<IUserRepository>('UserRepository', UserRepository)
 container.registerSingleton<IUserTokenRepository>('UserTokenRepository', UserTokenRepository)
 container.registerSingleton<IBcryptAdapter>('BcryptAdapter', BcryptAdater)
 container.registerSingleton<IEmailValidatorAdapter>('EmailValidatorAdapter', EmailValidatorAdapter)
-container.registerSingleton<IMailSenderAdapter>('MailSenderAdapter', MailSenderAdapter)
+container.registerSingleton<IMailTemplateAdapter>('MailTemplateAdapter', MailTemplateAdapter)
+container.registerInstance<IMailSenderAdapter>('MailSenderAdapter', container.resolve(MailSenderAdapter))
