@@ -6,7 +6,7 @@ export default class FakeProductPrimaryCategoryRepository implements IProductPri
 
   async create (name: string, slug: string): Promise<ProductPrimaryCategory> {
     const productPrimaryCategory = new ProductPrimaryCategory()
-    Object.assign(productPrimaryCategory, { id: 'any_id' }, { name }, { slug })
+    Object.assign(productPrimaryCategory, { id: 'any_category_id' }, { name }, { slug })
     this.productPrimaryCategoryRepository.push(productPrimaryCategory)
     return productPrimaryCategory
   }

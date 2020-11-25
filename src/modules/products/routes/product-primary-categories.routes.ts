@@ -6,6 +6,6 @@ const productPrimaryCategoryRouter = Router()
 const productPrimaryCategoryController = new ProductPrimaryCategoryController()
 
 productPrimaryCategoryRouter.use(isAuth)
-productPrimaryCategoryRouter.post('/primary-category', productPrimaryCategoryController.create)
+productPrimaryCategoryRouter.post('/primary', productPrimaryCategoryController.create)
 
 export default productPrimaryCategoryRouter

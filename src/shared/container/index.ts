@@ -15,9 +15,13 @@ import ProductPrimaryCategoryRepository
   from '@modules/products/infra/typeorm/repositories/product-primary-category-repository'
 import ITextFormatter from '@shared/helpers/protocols/i-text-formatter'
 import TextFormatter from '@shared/helpers/text-formatter'
+import IProductPrimaryCategoryRepository from '@modules/products/protocols/i-product-primary-category-repository'
+import IProductRepository from '@modules/products/protocols/i-product-repository'
+import ProductRepository from '@modules/products/infra/typeorm/repositories/product-repository'
 
 container.registerSingleton<IUserRepository>('UserRepository', UserRepository)
-container.registerSingleton<ProductPrimaryCategoryRepository>('ProductPrimaryCategoryRepository', ProductPrimaryCategoryRepository)
+container.registerSingleton<IProductRepository>('ProductRepository', ProductRepository)
+container.registerSingleton<IProductPrimaryCategoryRepository>('ProductPrimaryCategoryRepository', ProductPrimaryCategoryRepository)
 container.registerSingleton<IUserTokenRepository>('UserTokenRepository', UserTokenRepository)
 container.registerSingleton<IBcryptAdapter>('BcryptAdapter', BcryptAdater)
 container.registerSingleton<IEmailValidatorAdapter>('EmailValidatorAdapter', EmailValidatorAdapter)
