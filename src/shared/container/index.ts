@@ -13,6 +13,8 @@ import MailTemplateAdapter from '@shared/infra/adapters/mail-template-adapter'
 import IMailTemplateAdapter from '@shared/infra/adapters/protocols/i-mail-template-adapter'
 import ProductPrimaryCategoryRepository
   from '@modules/products/infra/typeorm/repositories/product-primary-category-repository'
+import ITextFormatter from '@shared/helpers/protocols/i-text-formatter'
+import TextFormatter from '@shared/helpers/text-formatter'
 
 container.registerSingleton<IUserRepository>('UserRepository', UserRepository)
 container.registerSingleton<ProductPrimaryCategoryRepository>('ProductPrimaryCategoryRepository', ProductPrimaryCategoryRepository)
@@ -21,3 +23,4 @@ container.registerSingleton<IBcryptAdapter>('BcryptAdapter', BcryptAdater)
 container.registerSingleton<IEmailValidatorAdapter>('EmailValidatorAdapter', EmailValidatorAdapter)
 container.registerSingleton<IMailTemplateAdapter>('MailTemplateAdapter', MailTemplateAdapter)
 container.registerInstance<IMailSenderAdapter>('MailSenderAdapter', container.resolve(MailSenderAdapter))
+container.registerSingleton<ITextFormatter>('TextFormatter', TextFormatter)

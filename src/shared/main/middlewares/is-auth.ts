@@ -6,7 +6,7 @@ import AppError from '@shared/errors/app-error'
 export const isAuth = (request: Request, response: Response, next: NextFunction): void => {
   const authHeader = request.headers.authorization
   if (!authHeader) {
-    throw new Error('Not Authorized')
+    throw new AppError('Not Authorized', 401)
   }
 
   const [, token] = authHeader.split(' ')
@@ -15,6 +15,6 @@ export const isAuth = (request: Request, response: Response, next: NextFunction)
     console.log(decoded)
     return next()
   } catch (error) {
-    throw new AppError('Not Authorized')
+    throw new AppError('Not Authorized', 401)
   }
 }

@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, ObjectID, ObjectIdColumn, UpdateDateColumn } from 'typeorm'
+import { ProductPrimaryCategory } from '@modules/products/infra/typeorm/entities/product-primary-category'
 
 @Entity()
 export class Product {
@@ -13,6 +14,9 @@ export class Product {
 
   @Column()
   thumbImg: string
+
+  @Column()
+  productPrimaryCategory: ProductPrimaryCategory
 
   @Column()
   price: number

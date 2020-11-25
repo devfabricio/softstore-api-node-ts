@@ -6,7 +6,7 @@ export class ProductPrimaryCategory {
   id: ObjectID
 
   @Column()
-  category: string
+  name: string
 
   @Column()
   slug: string
