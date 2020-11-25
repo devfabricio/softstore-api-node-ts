@@ -1,24 +1,15 @@
 import { Column, CreateDateColumn, Entity, ObjectID, ObjectIdColumn, UpdateDateColumn } from 'typeorm'
 
 @Entity()
-export class Product {
+export class MessageTopic {
   @ObjectIdColumn()
   id: ObjectID
 
   @Column()
-  name: string
+  user: string
 
   @Column()
-  description: string
-
-  @Column()
-  thumbImg: string
-
-  @Column()
-  price: number
-
-  @Column()
-  oldPrice: number
+  subject: string
 
   @CreateDateColumn()
   createdAt: Date

@@ -1,24 +1,39 @@
 import { Entity, ObjectID, ObjectIdColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 
 @Entity()
-export class User {
+export class UserAddress {
   @ObjectIdColumn()
   id: ObjectID
 
   @Column()
-  name: string
+  user: string
 
   @Column()
-  email: string
+  country: string
 
   @Column()
-  password: string
+  state: string
 
   @Column()
-  phone: string
+  city: string
 
   @Column()
-  profileImg: string
+  neighborhood: string
+
+  @Column()
+  street: string
+
+  @Column()
+  number: string
+
+  @Column()
+  complement: string
+
+  @Column()
+  reference: string
+
+  @Column()
+  zipcode: string
 
   @CreateDateColumn()
   createdAt: Date

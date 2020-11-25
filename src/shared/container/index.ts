@@ -11,8 +11,11 @@ import MailSenderAdapter from '@shared/infra/adapters/mail-sender-adapter'
 import IMailSenderAdapter from '@shared/infra/adapters/protocols/i-mail-sender-adapter'
 import MailTemplateAdapter from '@shared/infra/adapters/mail-template-adapter'
 import IMailTemplateAdapter from '@shared/infra/adapters/protocols/i-mail-template-adapter'
+import ProductPrimaryCategoryRepository
+  from '@modules/products/infra/typeorm/repositories/product-primary-category-repository'
 
 container.registerSingleton<IUserRepository>('UserRepository', UserRepository)
+container.registerSingleton<ProductPrimaryCategoryRepository>('ProductPrimaryCategoryRepository', ProductPrimaryCategoryRepository)
 container.registerSingleton<IUserTokenRepository>('UserTokenRepository', UserTokenRepository)
 container.registerSingleton<IBcryptAdapter>('BcryptAdapter', BcryptAdater)
 container.registerSingleton<IEmailValidatorAdapter>('EmailValidatorAdapter', EmailValidatorAdapter)
