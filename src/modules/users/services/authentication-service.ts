@@ -1,11 +1,11 @@
 import { sign } from 'jsonwebtoken'
-import { IUserModel } from '@modules/users/infra/schemas/user'
+import { IResponseUserModel } from '@modules/users/infra/schemas/user'
 import AppError from '@shared/errors/app-error'
 import IUserRepository from '@modules/users/infra/repositories/protocols/i-user-repository'
 import IBcryptAdapter from '@shared/infra/adapters/protocols/i-bcrypt-adapter'
 
 interface IResponse {
-  user: IUserModel
+  user: IResponseUserModel
   token: string
 }
 
@@ -31,9 +31,10 @@ export class AuthenticationService {
     }
 
     const userId = user._id
+    console.log('userId: ------- ', userId)
 
     const token = sign({}, 'd2efc1f9e9409e902919b3dbe6ccbeaa', {
-      subject: userId,
+      subject: userId.toString(),
       expiresIn: '30d'
     })
 

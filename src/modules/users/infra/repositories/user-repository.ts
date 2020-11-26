@@ -1,4 +1,4 @@
-import UserSchema, { IUserDocument, IUserModel } from '@modules/users/infra/schemas/user'
+import UserSchema, { IResponseUserModel, IUserDocument } from '@modules/users/infra/schemas/user'
 import IUserRepository from '@modules/users/infra/repositories/protocols/i-user-repository'
 import ICreateUserDTO from '@modules/users/dtos/i-create-user-dto'
 import { Model } from 'mongoose'
@@ -10,19 +10,19 @@ export class UserRepository implements IUserRepository {
     this.repository = UserSchema
   }
 
-  async create ({ name, email, password }: ICreateUserDTO): Promise<IUserModel> {
+  async create ({ name, email, password }: ICreateUserDTO): Promise<IResponseUserModel> {
     return await this.repository.create({ name, email, password })
   }
 
-  async findByEmail (email: string): Promise<IUserModel> {
+  async findByEmail (email: string): Promise<IResponseUserModel> {
     return this.repository.findOne({ email })
   }
 
-  async findById (id: string): Promise<IUserModel> {
+  async findById (id: string): Promise<IResponseUserModel> {
     return this.repository.findById(id)
   }
 
-  async save (user: IUserModel): Promise<IUserModel> {
-    return this.repository.updateOne({ _id: '' },{ $set: { ...user } })
+  async save (user: IResponseUserModel): Promise<IResponseUserModel> {
+    return this.repository.updateOne({ _id: user._id },{ $set: { ...user } })
   }
 }

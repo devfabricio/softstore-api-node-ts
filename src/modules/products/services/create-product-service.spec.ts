@@ -103,6 +103,18 @@ describe('CreateProductService', () => {
       price: 1
     })).rejects.toEqual(new AppError('A product with this name already exists'))
   })
+  it('Should return error if invalid category is provided', async () => {
+    const { sut } = makeSut()
+    const body: any = {
+      name: 'any_name',
+      description: 'other_description',
+      thumbImg: 'other_thumb',
+      productPrimaryCategory: 'any_category_id',
+      price: 1
+    }
+    await expect(sut.execute(body))
+      .rejects.toEqual(new AppError('Invalid product primary category'))
+  })
   it('Should called ProductRepository with slug field', async () => {
     const { sut, productRepository, productPrimaryCategoryRepository } = makeSut()
     const createSpy = jest.spyOn(productRepository, 'create')
