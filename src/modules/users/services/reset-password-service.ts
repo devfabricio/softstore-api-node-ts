@@ -1,17 +1,13 @@
-import { inject, injectable } from 'tsyringe'
-import IUserRepository from '@modules/users/protocols/i-user-repository'
-import IUserTokenRepository from '@modules/users/protocols/i-user-token-repository'
+import IUserRepository from '@modules/users/infra/repositories/protocols/i-user-repository'
+import IUserTokenRepository from '@modules/users/infra/repositories/protocols/i-user-token-repository'
 import AppError from '@shared/errors/app-error'
 import IBcryptAdapter from '@shared/infra/adapters/protocols/i-bcrypt-adapter'
 
-@injectable()
 export default class ResetPasswordService {
-  constructor (@inject('UserRepository')
-  private readonly usersRepository: IUserRepository,
-  @inject('BcryptAdapter')
-  private readonly bcryptAdapter: IBcryptAdapter,
-  @inject('UserTokenRepository')
-  private readonly userTokenRepository: IUserTokenRepository) {
+  constructor (
+    private readonly usersRepository: IUserRepository,
+    private readonly bcryptAdapter: IBcryptAdapter,
+    private readonly userTokenRepository: IUserTokenRepository) {
   }
 
   public async execute (body: any): Promise<void> {
@@ -26,7 +22,7 @@ export default class ResetPasswordService {
     if (!userToken) {
       throw new AppError('Invalid request to reset password: token')
     }
-    const user = await this.usersRepository.findById(userToken.user_id)
+    const user = await this.usersRepository.findById(userToken.user)
     if (!user) {
       throw new AppError('Invalid request to reset password: user')
     }

@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, ObjectID, ObjectIdColumn, UpdateDateColumn } from 'typeorm'
 import { Offer } from './offer'
-import { Product } from './product'
+import { Product } from '../../schemas/product'
 
 @Entity()
 export class ProductOffer {

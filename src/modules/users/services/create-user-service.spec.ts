@@ -1,7 +1,6 @@
 import { CreateUserService } from '@modules/users/services/create-user-service'
 import AppError from '@shared/errors/app-error'
-import { FakeUserRepository } from '@modules/users/infra/fakes/repositories/fake-user-repository'
-import { User } from '@modules/users/infra/typeorm/entities/user'
+import { FakeUserRepository } from '@modules/users/infra/repositories/fakes/fake-user-repository'
 import FakeBcryptAdapter from '@shared/infra/adapters/fakes/fake-bcrypt-adapter'
 import FakeEmailValidatorAdapter from '@shared/infra/adapters/fakes/fake-email-validator-adapter'
 
@@ -79,6 +78,6 @@ describe('CreateUser', () => {
       name: 'any_name',
       email: 'any_email@email.com.br',
       password: 'any_password'
-    })).resolves.toBeInstanceOf(User)
+    })).resolves.toHaveProperty('_id')
   })
 })

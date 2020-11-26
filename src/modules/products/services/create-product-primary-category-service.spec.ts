@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/app-error'
 import CreateProductPrimaryCategoryService from '@modules/products/services/create-product-primary-category-service'
 import FakeProductPrimaryCategoryRepository
-  from '@modules/products/infra/fakes/repositories/fake-product-primary-category-repository'
+  from '@modules/products/infra/repositories/fakes/fake-product-primary-category-repository'
 import TextFormatter from '@shared/helpers/text-formatter'
 
 interface ISutTypes {
@@ -59,7 +59,7 @@ describe('CreateUser', () => {
   it('Should returns ProductPrimaryCategory if create successfull', async () => {
     const { sut } = makeSut()
     const response = await sut.execute({ name: 'any_category' })
-    await expect(response).toHaveProperty('id')
+    await expect(response).toHaveProperty('_id')
     await expect(response).toHaveProperty('name')
   })
 })

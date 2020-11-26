@@ -1,21 +1,16 @@
-import { inject, injectable } from 'tsyringe'
 import path from 'path'
-import IUserRepository from '@modules/users/protocols/i-user-repository'
+import IUserRepository from '@modules/users/infra/repositories/protocols/i-user-repository'
 import IEmailValidatorAdapter from '@shared/infra/adapters/protocols/i-email-validator-adapter'
 import IMailSenderAdapter from '@shared/infra/adapters/protocols/i-mail-sender-adapter'
 import AppError from '@shared/errors/app-error'
-import IUserTokenRepository from '@modules/users/protocols/i-user-token-repository'
+import IUserTokenRepository from '@modules/users/infra/repositories/protocols/i-user-token-repository'
 
-@injectable()
 export default class SendForgotPasswordEmailService {
-  constructor (@inject('UserRepository')
-  private readonly usersRepository: IUserRepository,
-  @inject('EmailValidatorAdapter')
-  private readonly emailValidator: IEmailValidatorAdapter,
-  @inject('MailSenderAdapter')
-  private readonly sendEmail: IMailSenderAdapter,
-  @inject('UserTokenRepository')
-  private readonly userTokenRepository: IUserTokenRepository) {
+  constructor (
+    private readonly usersRepository: IUserRepository,
+    private readonly emailValidator: IEmailValidatorAdapter,
+    private readonly sendEmail: IMailSenderAdapter,
+    private readonly userTokenRepository: IUserTokenRepository) {
   }
 
   public async execute (body: any): Promise<void> {
@@ -31,7 +26,7 @@ export default class SendForgotPasswordEmailService {
     if (!user) {
       throw new AppError('Email not registered')
     }
-    const { token } = await this.userTokenRepository.generate(user.id.toString())
+    const { token } = await this.userTokenRepository.generate(user._id)
 
     const forgotPasswordTemplate = path.resolve('src/shared/views', 'forgot-password.hbs')
 

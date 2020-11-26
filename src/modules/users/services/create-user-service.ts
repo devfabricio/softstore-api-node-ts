@@ -1,22 +1,17 @@
 import 'reflect-metadata'
-import { User } from '../infra/typeorm/entities/user'
-import { inject, injectable } from 'tsyringe'
+import { IUserModel } from '../infra/schemas/user'
 import AppError from '@shared/errors/app-error'
-import IUserRepository from '@modules/users/protocols/i-user-repository'
+import IUserRepository from '@modules/users/infra/repositories/protocols/i-user-repository'
 import IBcryptAdapter from '@shared/infra/adapters/protocols/i-bcrypt-adapter'
 import IEmailValidatorAdapter from '@shared/infra/adapters/protocols/i-email-validator-adapter'
 
-@injectable()
 export class CreateUserService {
   constructor (
-    @inject('UserRepository')
     private readonly usersRepository: IUserRepository,
-    @inject('BcryptAdapter')
     private readonly bcryptAdapter: IBcryptAdapter,
-    @inject('EmailValidatorAdapter')
     private readonly emailValidator: IEmailValidatorAdapter) {}
 
-  public async execute (body: any): Promise<User> {
+  public async execute (body: any): Promise<IUserModel> {
     const requiredFields = ['name', 'email', 'password']
     for (const field of requiredFields) {
       if (!body[field]) {

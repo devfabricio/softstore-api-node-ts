@@ -1,19 +1,16 @@
 import 'reflect-metadata'
-import { ProductPrimaryCategory } from '../infra/typeorm/entities/product-primary-category'
-import { inject, injectable } from 'tsyringe'
-import IProductPrimaryCategoryRepository from '../protocols/i-product-primary-category-repository'
+import { IProductPrimaryCategoryModel } from '../infra/schemas/product-primary-category'
+import IProductPrimaryCategoryRepository from '../infra/repositories/protocols/i-product-primary-category-repository'
 import AppError from '@shared/errors/app-error'
 import ITextFormatter from '@shared/helpers/protocols/i-text-formatter'
 
-@injectable()
 export default class CreateProductPrimaryCategoryService {
-  constructor (@inject('ProductPrimaryCategoryRepository')
-  private readonly productPrimaryCategoryRepository: IProductPrimaryCategoryRepository,
-  @inject('TextFormatter')
-  private readonly textFormatter: ITextFormatter) {
+  constructor (
+    private readonly productPrimaryCategoryRepository: IProductPrimaryCategoryRepository,
+    private readonly textFormatter: ITextFormatter) {
   }
 
-  async execute (body: any): Promise<ProductPrimaryCategory> {
+  async execute (body: any): Promise<IProductPrimaryCategoryModel> {
     const { name } = body
     if (!name) {
       throw new AppError('Missing param: name')

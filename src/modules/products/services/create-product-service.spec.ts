@@ -1,10 +1,9 @@
 import AppError from '@shared/errors/app-error'
 import TextFormatter from '@shared/helpers/text-formatter'
-import FakeProductRepository from '@modules/products/infra/fakes/repositories/fake-product-repository'
+import FakeProductRepository from '@modules/products/infra/repositories/fakes/fake-product-repository'
 import CreateProductService from '@modules/products/services/create-product-service'
-import { Product } from '@modules/products/infra/typeorm/entities/product'
 import FakeProductPrimaryCategoryRepository
-  from '@modules/products/infra/fakes/repositories/fake-product-primary-category-repository'
+  from '@modules/products/infra/repositories/fakes/fake-product-primary-category-repository'
 
 interface ISutTypes {
   textFormatter: TextFormatter
@@ -32,7 +31,7 @@ describe('CreateProductService', () => {
     await expect(sut.execute({
       description: 'any_description',
       thumbImg: 'any_thumb',
-      productPrimaryCategoryID: 'any_category_id',
+      productPrimaryCategory: 'any_category_id',
       price: 1
     })).rejects.toEqual(new AppError('Missing param: name'))
   })
@@ -41,7 +40,7 @@ describe('CreateProductService', () => {
     await expect(sut.execute({
       name: 'any_name',
       thumbImg: 'any_thumb',
-      productPrimaryCategoryID: 'any_category_id',
+      productPrimaryCategory: 'any_category_id',
       price: 1
     })).rejects.toEqual(new AppError('Missing param: description'))
   })
@@ -61,7 +60,7 @@ describe('CreateProductService', () => {
       description: 'any_description',
       thumbImg: 'any_thumb',
       price: 1
-    })).rejects.toEqual(new AppError('Missing param: productPrimaryCategoryID'))
+    })).rejects.toEqual(new AppError('Missing param: productPrimaryCategory'))
   })
   it('Should returns error if no price is provided', async () => {
     const { sut } = makeSut()
@@ -69,7 +68,7 @@ describe('CreateProductService', () => {
       name: 'any_name',
       description: 'any_description',
       thumbImg: 'any_thumb',
-      productPrimaryCategoryID: 'any_category_id'
+      productPrimaryCategory: 'any_category_id'
     })).rejects.toEqual(new AppError('Missing param: price'))
   })
   it('Should calls TextFormatter.trim with correct value', async () => {
@@ -79,7 +78,7 @@ describe('CreateProductService', () => {
       name: ' any_name ',
       description: 'any_description',
       thumbImg: 'any_thumb',
-      productPrimaryCategoryID: 'any_category_id',
+      productPrimaryCategory: 'any_category_id',
       price: 1
     }
     await productPrimaryCategoryRepository.create('any_category', 'any_category')
@@ -92,7 +91,7 @@ describe('CreateProductService', () => {
       name: 'any_name',
       description: 'any_description',
       thumbImg: 'any_thumb',
-      productPrimaryCategoryID: 'any_category_id',
+      productPrimaryCategory: 'any_category_id',
       price: 1,
       slug: 'any_name'
     })
@@ -100,7 +99,7 @@ describe('CreateProductService', () => {
       name: 'any_name',
       description: 'other_description',
       thumbImg: 'other_thumb',
-      productPrimaryCategoryID: 'any_category_id',
+      productPrimaryCategory: 'any_category_id',
       price: 1
     })).rejects.toEqual(new AppError('A product with this name already exists'))
   })
@@ -111,7 +110,7 @@ describe('CreateProductService', () => {
       name: 'any_name',
       description: 'other_description',
       thumbImg: 'other_thumb',
-      productPrimaryCategoryID: 'any_category_id',
+      productPrimaryCategory: 'any_category_id',
       price: 1
     }
     await productPrimaryCategoryRepository.create('any_category', 'any_category')
@@ -126,7 +125,7 @@ describe('CreateProductService', () => {
       name: 'any_name',
       description: 'other_description',
       thumbImg: 'other_thumb',
-      productPrimaryCategoryID: 'any_category_id',
+      productPrimaryCategory: 'any_category_id',
       price: 1,
       oldPrice: 2
     }
@@ -142,8 +141,8 @@ describe('CreateProductService', () => {
       name: 'any_name',
       description: 'other_description',
       thumbImg: 'other_thumb',
-      productPrimaryCategoryID: 'any_category_id',
-      productSecundaryCategoryID: 'other_category_id',
+      productPrimaryCategory: 'any_category_id',
+      productSecundaryCategory: 'other_category_id',
       price: 1
     }
     await productPrimaryCategoryRepository.create('any_category', 'any_category')
@@ -158,10 +157,9 @@ describe('CreateProductService', () => {
       name: 'any_name',
       description: 'other_description',
       thumbImg: 'other_thumb',
-      productPrimaryCategoryID: 'any_category_id',
+      productPrimaryCategory: 'any_category_id',
       price: 1
     })
-    expect(product).toBeInstanceOf(Product)
-    expect(product).toHaveProperty('id')
+    expect(product).toHaveProperty('_id')
   })
 })

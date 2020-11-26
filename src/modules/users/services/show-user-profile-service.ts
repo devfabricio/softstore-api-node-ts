@@ -1,14 +1,12 @@
-import { inject, injectable } from 'tsyringe'
-import IUserRepository from '@modules/users/protocols/i-user-repository'
-import { User } from '@modules/users/infra/typeorm/entities/user'
+import IUserRepository from '@modules/users/infra/repositories/protocols/i-user-repository'
+import { IUserModel } from '@modules/users/infra/schemas/user'
 import AppError from '@shared/errors/app-error'
 
-@injectable()
 export default class ShowUserProfileService {
-  constructor (@inject('UserRepository')
-  private readonly usersRepository: IUserRepository) {}
+  constructor (
+    private readonly usersRepository: IUserRepository) {}
 
-  public async execute (body: any): Promise<User> {
+  public async execute (body: any): Promise<IUserModel> {
     const { userId } = body
     const user = await this.usersRepository.findById(userId)
     if (!user) {

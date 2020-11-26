@@ -1,6 +1,6 @@
-import { FakeUserRepository } from '@modules/users/infra/fakes/repositories/fake-user-repository'
+import { FakeUserRepository } from '@modules/users/infra/repositories/fakes/fake-user-repository'
 import AppError from '@shared/errors/app-error'
-import FakeUserTokenRepository from '@modules/users/infra/fakes/repositories/fake-user-token-repository'
+import FakeUserTokenRepository from '@modules/users/infra/repositories/fakes/fake-user-token-repository'
 import ResetPasswordService from '@modules/users/services/reset-password-service'
 import FakeBcryptAdapter from '@shared/infra/adapters/fakes/fake-bcrypt-adapter'
 
@@ -45,7 +45,7 @@ describe('SendForgotPasswordEmailService', () => {
     const { sut, userRepository, userTokenRepository } = makeSut()
     const findByTokenSpy = jest.spyOn(userTokenRepository, 'findByToken')
     const user = await userRepository.create(createUserBody)
-    const userToken = await userTokenRepository.generate(user.id.toString())
+    const userToken = await userTokenRepository.generate(user._id)
     await sut.execute({
       token: userToken.token,
       password: 'any_password'

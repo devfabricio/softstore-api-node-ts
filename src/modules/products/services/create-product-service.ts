@@ -1,23 +1,18 @@
-import { Product } from '@modules/products/infra/typeorm/entities/product'
-import { inject, injectable } from 'tsyringe'
+import { IProductModel } from '@modules/products/infra/schemas/product'
 import ITextFormatter from '@shared/helpers/protocols/i-text-formatter'
-import IProductRepository from '@modules/products/protocols/i-product-repository'
+import IProductRepository from '@modules/products/infra/repositories/protocols/i-product-repository'
 import AppError from '@shared/errors/app-error'
-import ICreateProductDTO from '@modules/products/dtos/i-create-product-dto'
-import IProductPrimaryCategoryRepository from '@modules/products/protocols/i-product-primary-category-repository'
+import IProductPrimaryCategoryRepository from '@modules/products/infra/repositories/protocols/i-product-primary-category-repository'
 
-@injectable()
 export default class CreateProductService {
-  constructor (@inject('ProductRepository')
-  private readonly productRepository: IProductRepository,
-  @inject('ProductPrimaryCategoryRepository')
-  private readonly productPrimaryCategoryRepository: IProductPrimaryCategoryRepository,
-  @inject('TextFormatter')
-  private readonly textFormatter: ITextFormatter) {
+  constructor (
+    private readonly productRepository: IProductRepository,
+    private readonly productPrimaryCategoryRepository: IProductPrimaryCategoryRepository,
+    private readonly textFormatter: ITextFormatter) {
   }
 
-  async execute (body: any): Promise<Product> {
-    const requiredFields = ['name', 'description', 'thumbImg', 'productPrimaryCategoryID', 'price']
+  async execute (body: any): Promise<IProductModel> {
+    const requiredFields = ['name', 'description', 'thumbImg', 'productPrimaryCategory', 'price']
     for (const field of requiredFields) {
       if (!body[field]) {
         throw new AppError(`Missing param: ${field}`)
@@ -26,8 +21,8 @@ export default class CreateProductService {
 
     const {
       name, description, thumbImg, price, oldPrice,
-      productPrimaryCategoryID, productSecundaryCategoryID
-    }: ICreateProductDTO = body
+      productPrimaryCategory, productSecundaryCategory
+    } = body
 
     const productName = this.textFormatter.trim(name)
     const checkIfProductNameExists = await this.productRepository.findByName(productName)
@@ -35,17 +30,17 @@ export default class CreateProductService {
       throw new AppError('A product with this name already exists')
     }
     const checkIfProductPrimaryCategoryExists = await this.productPrimaryCategoryRepository
-      .findById(productPrimaryCategoryID)
+      .findById(productPrimaryCategory)
     if (!checkIfProductPrimaryCategoryExists) {
       throw new AppError('Invalid product primary category')
     }
     const slug = this.textFormatter.slugConverter(productName)
-    const productData: ICreateProductDTO = { name, description, thumbImg, price, slug, productPrimaryCategoryID }
+    const productData: IProductModel = { name, description, thumbImg, price, slug, productPrimaryCategory }
     if (oldPrice) {
       productData.oldPrice = oldPrice
     }
-    if (productSecundaryCategoryID) {
-      productData.productSecundaryCategoryID = productSecundaryCategoryID
+    if (productSecundaryCategory) {
+      productData.productSecundaryCategory = productSecundaryCategory
     }
     const product = await this.productRepository.create(productData)
     return product

@@ -1,12 +1,10 @@
 import { Request, Response } from 'express'
-import { container } from 'tsyringe'
-import { IController } from '@modules/users/protocols/i-controller'
-import UpdateUserProfileService from '@modules/users/services/update-user-profile-service'
-import ShowUserProfileService from '@modules/users/services/show-user-profile-service'
+import { IController } from '@shared/protocols/i-controller'
+import { makeShowUserProfileService, makeUpdateUserProfileService } from '@modules/users/factories'
 
 export default class ProfileController implements IController {
   async show (request: Request, response: Response): Promise<Response> {
-    const showProfile = container.resolve(ShowUserProfileService)
+    const showProfile = makeShowUserProfileService()
     const user = await showProfile.execute(request.body)
     delete user.password
     return response.json(user)
@@ -14,7 +12,7 @@ export default class ProfileController implements IController {
 
   async update (request: Request, response: Response): Promise<Response> {
     const body = request.body
-    const updateProfile = container.resolve(UpdateUserProfileService)
+    const updateProfile = makeUpdateUserProfileService()
 
     const user = await updateProfile.execute(body)
     delete user.password

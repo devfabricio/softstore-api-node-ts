@@ -1,17 +1,14 @@
-import { inject, injectable } from 'tsyringe'
-import IUserRepository from '@modules/users/protocols/i-user-repository'
+import IUserRepository from '@modules/users/infra/repositories/protocols/i-user-repository'
 import IBcryptAdapter from '@shared/infra/adapters/protocols/i-bcrypt-adapter'
 import AppError from '@shared/errors/app-error'
-import { User } from '@modules/users/infra/typeorm/entities/user'
+import { IUserModel } from '@modules/users/infra/schemas/user'
 
-@injectable()
 export default class UpdateUserProfileService {
-  constructor (@inject('UserRepository')
-  private readonly usersRepository: IUserRepository,
-  @inject('BcryptAdapter')
-  private readonly bcryptAdapter: IBcryptAdapter) {}
+  constructor (
+    private readonly usersRepository: IUserRepository,
+    private readonly bcryptAdapter: IBcryptAdapter) {}
 
-  public async execute (body: any): Promise<User> {
+  public async execute (body: any): Promise<IUserModel> {
     const requiredFields = ['userId']
     for (const field of requiredFields) {
       if (!body[field]) {

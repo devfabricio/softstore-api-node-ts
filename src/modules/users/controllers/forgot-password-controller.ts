@@ -1,12 +1,11 @@
-import { IController } from '@modules/users/protocols/i-controller'
-import SendForgotPasswordEmailService from '@modules/users/services/send-forgot-password-email-service'
+import { IController } from '@shared/protocols/i-controller'
 import { Request, Response } from 'express'
-import { container } from 'tsyringe'
+import { makeSendForgotPasswordEmailService } from '@modules/users/factories'
 
 class ForgotPasswordController implements IController {
   public async create (request: Request, response: Response): Promise<Response> {
     const { email } = request.body
-    const resetPasswordService = container.resolve(SendForgotPasswordEmailService)
+    const resetPasswordService = makeSendForgotPasswordEmailService()
     await resetPasswordService.execute({ email })
     return response.status(204).json()
   }

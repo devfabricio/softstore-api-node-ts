@@ -1,12 +1,8 @@
-import { Entity, ObjectID, ObjectIdColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Column, ObjectIdColumn } from 'typeorm'
 
-@Entity()
 export class UserAddress {
   @ObjectIdColumn()
-  id: ObjectID
-
-  @Column()
-  user: string
+  id: string
 
   @Column()
   country: string
@@ -34,10 +30,4 @@ export class UserAddress {
 
   @Column()
   zipcode: string
-
-  @CreateDateColumn()
-  createdAt: Date
-
-  @UpdateDateColumn()
-  updatedAt: Date
 }

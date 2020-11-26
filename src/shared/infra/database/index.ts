@@ -1,10 +1,12 @@
-import { createConnection } from 'typeorm'
+import mongoose from 'mongoose'
 
-createConnection({
-  type: 'mongodb',
-  host: 'localhost',
-  port: 27017,
-  database: 'soft-store-db',
-  entities: ['./src/modules/**/infra/typeorm/entities/*.ts']
-}).then(r => { if (r.isConnected) console.log('database connected!') })
-  .catch(error => console.log(error))
+mongoose.connect('mongodb://localhost:27017/soft-store-db', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 180000 // Timeout after 5s instead of 30s
+})
+  .then(() => {
+    console.log('database connected!')
+  }).catch(err => {
+    console.log(err)
+  })

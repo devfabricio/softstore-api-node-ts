@@ -1,4 +1,4 @@
-import { FakeUserRepository } from '@modules/users/infra/fakes/repositories/fake-user-repository'
+import { FakeUserRepository } from '@modules/users/infra/repositories/fakes/fake-user-repository'
 import AppError from '@shared/errors/app-error'
 import { AuthenticationService } from '@modules/users/services/authentication-service'
 import { CreateUserService } from '@modules/users/services/create-user-service'

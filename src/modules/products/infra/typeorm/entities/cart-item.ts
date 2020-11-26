@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, ObjectID, ObjectIdColumn, UpdateDateColumn } from 'typeorm'
-import { User } from '@modules/users/infra/typeorm/entities/user'
-import { Product } from './product'
+import { User } from '@modules/users/infra/schemas/user'
+import { Product } from '../../schemas/product'
 
 @Entity()
 export class CartItem {

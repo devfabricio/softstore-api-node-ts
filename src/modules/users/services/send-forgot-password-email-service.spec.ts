@@ -1,9 +1,9 @@
 import FakeEmailValidatorAdapter from '@shared/infra/adapters/fakes/fake-email-validator-adapter'
-import { FakeUserRepository } from '@modules/users/infra/fakes/repositories/fake-user-repository'
+import { FakeUserRepository } from '@modules/users/infra/repositories/fakes/fake-user-repository'
 import AppError from '@shared/errors/app-error'
 import FakeMailSenderAdapter from '@shared/infra/adapters/fakes/fake-mail-sender-adapter'
 import SendForgotPasswordEmailService from '@modules/users/services/send-forgot-password-email-service'
-import FakeUserTokenRepository from '@modules/users/infra/fakes/repositories/fake-user-token-repository'
+import FakeUserTokenRepository from '@modules/users/infra/repositories/fakes/fake-user-token-repository'
 
 interface ISutTypes {
   sut: SendForgotPasswordEmailService
@@ -70,7 +70,7 @@ describe('SendForgotPasswordEmailService', () => {
     await sut.execute({
       email: 'any_email@email.com'
     })
-    expect(userTokenRepositorySpy).toHaveBeenCalledWith(user.id)
+    expect(userTokenRepositorySpy).toHaveBeenCalledWith(user._id)
   })
   it('Should calls EmailSender if success', async () => {
     const { sut, userRepository, mailSender } = makeSut()
