@@ -7,5 +7,6 @@ const productPrimaryCategoryController = new ProductPrimaryCategoryController()
 
 productPrimaryCategoryRouter.use(isAuth)
 productPrimaryCategoryRouter.post('/primary', productPrimaryCategoryController.create)
+productPrimaryCategoryRouter.get('/primary', productPrimaryCategoryController.index)
 
 export default productPrimaryCategoryRouter

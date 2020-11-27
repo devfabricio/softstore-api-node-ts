@@ -31,7 +31,6 @@ export class AuthenticationService {
     }
 
     const userId = user._id
-    console.log('userId: ------- ', userId)
 
     const token = sign({}, 'd2efc1f9e9409e902919b3dbe6ccbeaa', {
       subject: userId.toString(),

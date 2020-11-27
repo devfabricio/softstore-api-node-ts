@@ -4,6 +4,10 @@ import { IResponseProductPrimaryCategoryModel } from '@modules/products/infra/sc
 export default class FakeProductPrimaryCategoryRepository implements IProductPrimaryCategoryRepository {
   private readonly productPrimaryCategoryRepository: IResponseProductPrimaryCategoryModel[] = []
 
+  async find (): Promise<IResponseProductPrimaryCategoryModel[]> {
+    return this.productPrimaryCategoryRepository
+  }
+
   async create (name: string, slug: string): Promise<IResponseProductPrimaryCategoryModel> {
     const productPrimaryCategory: IResponseProductPrimaryCategoryModel = { _id: 'any_category_id', name, slug }
     this.productPrimaryCategoryRepository.push(productPrimaryCategory)

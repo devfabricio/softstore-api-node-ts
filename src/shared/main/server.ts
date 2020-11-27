@@ -4,7 +4,7 @@ import 'express-async-errors'
 import cors from 'cors'
 import routes from './routes'
 import AppError from '../errors/app-error'
-import '../infra/database'
+import { connectDB } from '../infra/database'
 
 const app = express()
 
@@ -28,6 +28,13 @@ app.use((err: Error, req: Request, res: Response, _: NextFunction) => {
   })
 })
 
-app.listen(3333, () => {
-  console.log('Server started on port 333')
-})
+const appListen = (): void => {
+  connectDB().then(() => {
+    app.listen(3333, () => {
+      console.log('Server started on port 3333')
+    })
+  })
+    .catch(err => console.log(err))
+}
+
+appListen()

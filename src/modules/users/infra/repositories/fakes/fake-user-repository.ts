@@ -1,5 +1,5 @@
 import IUserRepository from '@modules/users/infra/repositories/protocols/i-user-repository'
-import { IResponseUserModel, IUserModel } from '@modules/users/infra/schemas/user'
+import { IResponseUserModel } from '@modules/users/infra/schemas/user'
 import ICreateUserDTO from '@modules/users/dtos/i-create-user-dto'
 
 export class FakeUserRepository implements IUserRepository {
@@ -15,7 +15,7 @@ export class FakeUserRepository implements IUserRepository {
     return this.users.find(user => user.email === email)
   }
 
-  async findById (id: string): Promise<IUserModel> {
+  async findById (id: string): Promise<IResponseUserModel> {
     return this.users.find(user => user._id.toString() === id)
   }
 

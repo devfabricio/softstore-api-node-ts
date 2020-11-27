@@ -23,7 +23,7 @@ export default class UpdateUserProfileService {
       throw new AppError('User not found')
     }
     const userUpdatedEmail = await this.usersRepository.findByEmail(body.email)
-    if (userUpdatedEmail && userUpdatedEmail.id.toString() !== body.userId) {
+    if (userUpdatedEmail && userUpdatedEmail._id.toString() !== body.userId) {
       throw new AppError('Email already in use')
     }
 
