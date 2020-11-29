@@ -13,6 +13,7 @@ export const isAuth = (request: Request, response: Response, next: NextFunction)
   try {
     const decoded = verify(token, authConfig.jwt.secret)
     console.log(decoded)
+    console.log('verify token')
     return next()
   } catch (error) {
     throw new AppError('Not Authorized', 401)

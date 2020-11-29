@@ -5,8 +5,7 @@ export interface IProductModel {
   description: string
   thumbImg: string
   slug: string
-  productPrimaryCategory: string
-  productSecundaryCategory?: string
+  category: string
   price: number
   oldPrice?: number
 }
@@ -34,14 +33,10 @@ const ProductSchema = new Schema({
     type: String,
     required: true
   },
-  productPrimaryCategory: {
+  category: {
     type: Schema.Types.ObjectId,
-    ref: 'ProductPrimaryCategory',
+    ref: 'Category',
     required: true
-  },
-  productSecundaryCategory: {
-    type: String,
-    required: false
   },
   photos: {
     type: String,

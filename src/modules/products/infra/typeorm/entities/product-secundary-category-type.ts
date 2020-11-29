@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, ObjectID, ObjectIdColumn, UpdateDateColumn } from 'typeorm'
-import { ProductPrimaryCategory } from '@modules/products/infra/schemas/product-primary-category'
+import { ProductPrimaryCategory } from '@modules/products/infra/schemas/category'
 
 @Entity()
 export class ProductSecundaryCategoryType {

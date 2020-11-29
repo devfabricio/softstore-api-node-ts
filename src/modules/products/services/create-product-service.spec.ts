@@ -2,12 +2,12 @@ import AppError from '@shared/errors/app-error'
 import TextFormatter from '@shared/helpers/text-formatter'
 import FakeProductRepository from '@modules/products/infra/repositories/fakes/fake-product-repository'
 import CreateProductService from '@modules/products/services/create-product-service'
-import FakeProductPrimaryCategoryRepository
-  from '@modules/products/infra/repositories/fakes/fake-product-primary-category-repository'
+import FakeCategoryRepository
+  from '@modules/products/infra/repositories/fakes/fake-category-repository'
 
 interface ISutTypes {
   textFormatter: TextFormatter
-  productPrimaryCategoryRepository: FakeProductPrimaryCategoryRepository
+  productPrimaryCategoryRepository: FakeCategoryRepository
   productRepository: FakeProductRepository
   sut: CreateProductService
 }
@@ -15,7 +15,7 @@ interface ISutTypes {
 const makeSut = (): ISutTypes => {
   const textFormatter = new TextFormatter()
   const productRepository = new FakeProductRepository()
-  const productPrimaryCategoryRepository = new FakeProductPrimaryCategoryRepository()
+  const productPrimaryCategoryRepository = new FakeCategoryRepository()
   const sut = new CreateProductService(productRepository, productPrimaryCategoryRepository, textFormatter)
   return {
     textFormatter,
@@ -31,7 +31,7 @@ describe('CreateProductService', () => {
     await expect(sut.execute({
       description: 'any_description',
       thumbImg: 'any_thumb',
-      productPrimaryCategory: 'any_category_id',
+      category: 'any_category_id',
       price: 1
     })).rejects.toEqual(new AppError('Missing param: name'))
   })
@@ -40,7 +40,7 @@ describe('CreateProductService', () => {
     await expect(sut.execute({
       name: 'any_name',
       thumbImg: 'any_thumb',
-      productPrimaryCategory: 'any_category_id',
+      category: 'any_category_id',
       price: 1
     })).rejects.toEqual(new AppError('Missing param: description'))
   })
@@ -49,18 +49,18 @@ describe('CreateProductService', () => {
     await expect(sut.execute({
       name: 'any_name',
       description: 'any_description',
-      productPrimaryCategory: 'any_category_id',
+      category: 'any_category_id',
       price: 1
     })).rejects.toEqual(new AppError('Missing param: thumbImg'))
   })
-  it('Should returns error if no productPrimaryCategoryID is provided', async () => {
+  it('Should returns error if no category is provided', async () => {
     const { sut } = makeSut()
     await expect(sut.execute({
       name: 'any_name',
       description: 'any_description',
       thumbImg: 'any_thumb',
       price: 1
-    })).rejects.toEqual(new AppError('Missing param: productPrimaryCategory'))
+    })).rejects.toEqual(new AppError('Missing param: category'))
   })
   it('Should returns error if no price is provided', async () => {
     const { sut } = makeSut()
@@ -68,7 +68,7 @@ describe('CreateProductService', () => {
       name: 'any_name',
       description: 'any_description',
       thumbImg: 'any_thumb',
-      productPrimaryCategory: 'any_category_id'
+      category: 'any_category_id'
     })).rejects.toEqual(new AppError('Missing param: price'))
   })
   it('Should calls TextFormatter.trim with correct value', async () => {
@@ -78,7 +78,7 @@ describe('CreateProductService', () => {
       name: ' any_name ',
       description: 'any_description',
       thumbImg: 'any_thumb',
-      productPrimaryCategory: 'any_category_id',
+      category: 'any_category_id',
       price: 1
     }
     await productPrimaryCategoryRepository.create('any_category', 'any_category')
@@ -91,7 +91,7 @@ describe('CreateProductService', () => {
       name: 'any_name',
       description: 'any_description',
       thumbImg: 'any_thumb',
-      productPrimaryCategory: 'any_category_id',
+      category: 'any_category_id',
       price: 1,
       slug: 'any_name'
     })
@@ -99,7 +99,7 @@ describe('CreateProductService', () => {
       name: 'any_name',
       description: 'other_description',
       thumbImg: 'other_thumb',
-      productPrimaryCategory: 'any_category_id',
+      category: 'any_category_id',
       price: 1
     })).rejects.toEqual(new AppError('A product with this name already exists'))
   })
@@ -109,7 +109,7 @@ describe('CreateProductService', () => {
       name: 'any_name',
       description: 'other_description',
       thumbImg: 'other_thumb',
-      productPrimaryCategory: 'any_category_id',
+      category: 'any_category_id',
       price: 1
     }
     await expect(sut.execute(body))
@@ -122,7 +122,7 @@ describe('CreateProductService', () => {
       name: 'any_name',
       description: 'other_description',
       thumbImg: 'other_thumb',
-      productPrimaryCategory: 'any_category_id',
+      category: 'any_category_id',
       price: 1
     }
     await productPrimaryCategoryRepository.create('any_category', 'any_category')
@@ -137,25 +137,9 @@ describe('CreateProductService', () => {
       name: 'any_name',
       description: 'other_description',
       thumbImg: 'other_thumb',
-      productPrimaryCategory: 'any_category_id',
+      category: 'any_category_id',
       price: 1,
       oldPrice: 2
-    }
-    await productPrimaryCategoryRepository.create('any_category', 'any_category')
-    await sut.execute(body)
-    body.slug = 'any_name'
-    expect(createSpy).toBeCalledWith(body)
-  })
-  it('Should called ProductRepository with productSecundaryCategoryID field if provided', async () => {
-    const { sut, productRepository, productPrimaryCategoryRepository } = makeSut()
-    const createSpy = jest.spyOn(productRepository, 'create')
-    const body: any = {
-      name: 'any_name',
-      description: 'other_description',
-      thumbImg: 'other_thumb',
-      productPrimaryCategory: 'any_category_id',
-      productSecundaryCategory: 'other_category_id',
-      price: 1
     }
     await productPrimaryCategoryRepository.create('any_category', 'any_category')
     await sut.execute(body)
@@ -169,7 +153,7 @@ describe('CreateProductService', () => {
       name: 'any_name',
       description: 'other_description',
       thumbImg: 'other_thumb',
-      productPrimaryCategory: 'any_category_id',
+      category: 'any_category_id',
       price: 1
     })
     expect(product).toHaveProperty('_id')

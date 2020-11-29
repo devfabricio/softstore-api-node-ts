@@ -1,19 +1,19 @@
 import AppError from '@shared/errors/app-error'
-import CreateProductPrimaryCategoryService from '@modules/products/services/create-product-primary-category-service'
-import FakeProductPrimaryCategoryRepository
-  from '@modules/products/infra/repositories/fakes/fake-product-primary-category-repository'
+import CreateCategoryService from '@modules/products/services/create-category-service'
+import FakeCategoryRepository
+  from '@modules/products/infra/repositories/fakes/fake-category-repository'
 import TextFormatter from '@shared/helpers/text-formatter'
 
 interface ISutTypes {
   textFormatter: TextFormatter
-  productPrimaryCategoryRepository: FakeProductPrimaryCategoryRepository
-  sut: CreateProductPrimaryCategoryService
+  productPrimaryCategoryRepository: FakeCategoryRepository
+  sut: CreateCategoryService
 }
 
 const makeSut = (): ISutTypes => {
   const textFormatter = new TextFormatter()
-  const productPrimaryCategoryRepository = new FakeProductPrimaryCategoryRepository()
-  const sut = new CreateProductPrimaryCategoryService(productPrimaryCategoryRepository, textFormatter)
+  const productPrimaryCategoryRepository = new FakeCategoryRepository()
+  const sut = new CreateCategoryService(productPrimaryCategoryRepository, textFormatter)
   return {
     textFormatter,
     productPrimaryCategoryRepository,
@@ -26,7 +26,7 @@ describe('CreateUser', () => {
     const { sut } = makeSut()
     await expect(sut.execute({})).rejects.toEqual(new AppError('Missing param: name'))
   })
-  it('Should ProductPrimaryCategoryRepository called with correct value', async () => {
+  it('Should CategoryRepository called with correct value', async () => {
     const { sut, textFormatter, productPrimaryCategoryRepository } = makeSut()
     const createSpy = jest.spyOn(productPrimaryCategoryRepository, 'create')
     const name = ' any_category '
