@@ -17,16 +17,15 @@ export default class UpdateCategoryService {
       }
     }
 
-    const { _id, name, productCounter } = body
+    const { _id, name } = body
 
     const category = await this.categoryRepository.findById(_id)
     if (!category) {
       throw new AppError('Category not found')
     }
 
-    category.productCounter = productCounter
     if (name !== category.name) {
-      category.name = name
+      category.name = this.textFormatter.trim(name)
       category.slug = this.textFormatter.slugConverter(name)
     }
 

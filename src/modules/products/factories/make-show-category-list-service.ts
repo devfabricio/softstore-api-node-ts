@@ -1,7 +1,7 @@
 import CategoryRepository from '@modules/products/infra/repositories/category-repository'
-import ShowCategoryListService from '@modules/products/services/show-category-list-service'
+import ListCategoriesService from '@modules/products/services/list-categories-service'
 
-export const makeShowCategoryListService = (): ShowCategoryListService => {
+export const makeShowCategoryListService = (): ListCategoriesService => {
   const productPrimaryCategoryRepository = new CategoryRepository()
-  return new ShowCategoryListService(productPrimaryCategoryRepository)
+  return new ListCategoriesService(productPrimaryCategoryRepository)
 }

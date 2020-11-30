@@ -6,9 +6,11 @@ export default class ShowUserProfileService {
   constructor (
     private readonly usersRepository: IUserRepository) {}
 
-  public async execute (body: any): Promise<IUserModel> {
-    const { userId } = body
-    const user = await this.usersRepository.findById(userId)
+  public async execute (id?: any): Promise<IUserModel> {
+    if (!id) {
+      throw new AppError('Missing param: id')
+    }
+    const user = await this.usersRepository.findById(id)
     if (!user) {
       throw new AppError('User not found')
     }

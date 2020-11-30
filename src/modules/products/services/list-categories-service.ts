@@ -2,7 +2,7 @@ import ICategoryRepository
   from '@modules/products/infra/repositories/protocols/i-category-repository'
 import { ICategoryModel } from '@modules/products/infra/schemas/category'
 
-export default class ShowCategoryListService {
+export default class ListCategoriesService {
   constructor (
     private readonly categoryRepository: ICategoryRepository) {}
 

@@ -21,7 +21,7 @@ const makeSut = (): ISutTypes => {
   }
 }
 
-describe('CreateUser', () => {
+describe('CreateCategoryService', () => {
   it('Should returns error if no category is provided', async () => {
     const { sut } = makeSut()
     await expect(sut.execute({})).rejects.toEqual(new AppError('Missing param: name'))

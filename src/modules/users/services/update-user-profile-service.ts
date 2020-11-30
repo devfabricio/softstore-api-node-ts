@@ -9,26 +9,31 @@ export default class UpdateUserProfileService {
     private readonly bcryptAdapter: IBcryptAdapter) {}
 
   public async execute (body: any): Promise<IUserModel> {
-    const requiredFields = ['userId']
+    const requiredFields = ['_id']
     for (const field of requiredFields) {
       if (!body[field]) {
         throw new AppError(`Missing param: ${field}`)
       }
     }
 
-    const { userId, name, email, password, oldPassword } = body
+    const { _id, name, email, password, oldPassword } = body
 
-    const user = await this.usersRepository.findById(userId)
+    const user = await this.usersRepository.findById(_id)
     if (!user) {
       throw new AppError('User not found')
     }
-    const userUpdatedEmail = await this.usersRepository.findByEmail(body.email)
-    if (userUpdatedEmail && userUpdatedEmail._id.toString() !== body.userId) {
-      throw new AppError('Email already in use')
+
+    if (!!email && email !== user.email) {
+      const userUpdatedEmail = await this.usersRepository.findByEmail(body.email)
+      if (userUpdatedEmail && userUpdatedEmail._id.toString() !== body.userId) {
+        throw new AppError('Email already in use')
+      }
+      user.email = email
     }
 
-    user.name = name
-    user.email = email
+    if (name !== user.name) {
+      user.name = name
+    }
 
     if (password && !oldPassword) {
       throw new AppError('You need to inform the old password to set a new password')

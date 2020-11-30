@@ -2,7 +2,7 @@ import { ICategoryResponse } from '@modules/products/infra/schemas/category'
 import ICategoryRepository from '@modules/products/infra/repositories/protocols/i-category-repository'
 import AppError from '@shared/errors/app-error'
 
-export default class AddProductQuantityInCategory {
+export default class AddProductQuantityInCategoryService {
   constructor (
     private readonly categoryRepository: ICategoryRepository) {}
 

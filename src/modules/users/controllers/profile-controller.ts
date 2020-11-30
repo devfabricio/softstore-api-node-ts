@@ -4,8 +4,9 @@ import { makeShowUserProfileService, makeUpdateUserProfileService } from '@modul
 
 export default class ProfileController implements IController {
   async show (request: Request, response: Response): Promise<Response> {
+    const id = request.params.id
     const showProfile = makeShowUserProfileService()
-    const user = await showProfile.execute(request.body)
+    const user = await showProfile.execute(id)
     delete user.password
     return response.json(user)
   }

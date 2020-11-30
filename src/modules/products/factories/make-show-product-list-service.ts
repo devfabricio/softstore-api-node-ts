@@ -1,7 +1,7 @@
 import ProductRepository from '@modules/products/infra/repositories/product-repository'
-import ShowProductListService from '@modules/products/services/show-product-list-service'
+import ListProductsService from '@modules/products/services/list-products-service'
 
-export const makeShowProductListService = (): ShowProductListService => {
+export const makeShowProductListService = (): ListProductsService => {
   const productRepository = new ProductRepository()
-  return new ShowProductListService(productRepository)
+  return new ListProductsService(productRepository)
 }
