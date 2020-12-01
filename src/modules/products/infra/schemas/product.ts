@@ -1,16 +1,17 @@
 import { Document, Schema, model } from 'mongoose'
+import { ICategoryResponse } from '@modules/products/infra/schemas/category'
 
 export interface IProductModel {
   name: string
   description: string
   thumbImg: string
   slug: string
-  category: string
+  category: string | ICategoryResponse
   price: number
   oldPrice?: number
 }
 
-export interface IResponseProductModel extends IProductModel {
+export interface IProductResponse extends IProductModel {
   _id: string
 }
 
