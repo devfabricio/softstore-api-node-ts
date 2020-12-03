@@ -16,7 +16,12 @@ export default class ProductController implements IController {
 
   async index (request: Request, response: Response): Promise<Response> {
     const showProductListService = makeListProductService()
-    const productList = await showProductListService.execute()
+    const filter: any = {}
+    const category = request.params.category
+    if (category) {
+      filter.category = category
+    }
+    const productList = await showProductListService.execute(filter)
     return response.status(200).json(productList)
   }
 

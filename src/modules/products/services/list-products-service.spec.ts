@@ -19,7 +19,7 @@ describe('ListProductsService', () => {
   it('Should call find method in ProductRepository', async () => {
     const { sut, productRepository } = makeSut()
     const onFindSpy = jest.spyOn(productRepository, 'find')
-    await sut.execute()
+    await sut.execute({})
     expect(onFindSpy).toHaveBeenCalled()
   })
 })

@@ -18,6 +18,10 @@ export default class FakeProductRepository implements IProductRepository {
     return this.products.find(product => product.name === name)
   }
 
+  async findByCategory (category: string): Promise<IProductResponse[]> {
+    return this.products.filter(product => product.category === category)
+  }
+
   async findById (id: string): Promise<IProductResponse> {
     return this.products.find(product => product._id.toString() === id)
   }

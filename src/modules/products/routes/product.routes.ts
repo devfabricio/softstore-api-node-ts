@@ -6,9 +6,10 @@ const productRouter = Router()
 const productController = new ProductController()
 
 productRouter.get('/', productController.index)
-productRouter.post('/', isAdminAuth, productController.create)
-productRouter.put('/', isAdminAuth, productController.update)
 productRouter.get('/i/:id', productController.show)
 productRouter.get('/s/:slug', productController.show)
+productRouter.get('/category/:category', productController.index)
+productRouter.post('/', isAdminAuth, productController.create)
+productRouter.put('/', isAdminAuth, productController.update)
 
 export default productRouter

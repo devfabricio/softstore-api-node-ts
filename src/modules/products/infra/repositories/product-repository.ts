@@ -18,6 +18,10 @@ export default class ProductRepository implements IProductRepository {
     return this.repository.find().populate('category')
   }
 
+  async findByCategory (category: string): Promise<IProductResponse[]> {
+    return this.repository.find({ category: category }).populate('category')
+  }
+
   async findByName (name: string): Promise<IProductResponse> {
     return this.repository.findOne({ name })
   }
