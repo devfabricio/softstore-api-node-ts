@@ -30,10 +30,10 @@ export class AuthenticationService {
       throw new AppError('Invalid credentials', 401)
     }
 
-    const userId = user._id
+    const userId = user._id.toString()
 
-    const token = sign({}, 'd2efc1f9e9409e902919b3dbe6ccbeaa', {
-      subject: userId.toString(),
+    const token = sign({ uid: userId }, 'd2efc1f9e9409e902919b3dbe6ccbeaa', {
+      subject: userId,
       expiresIn: '30d'
     })
 
