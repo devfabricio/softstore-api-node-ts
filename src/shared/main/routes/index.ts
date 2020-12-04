@@ -7,6 +7,7 @@ import passwordRouter from '@modules/users/routes/password.routers'
 import profileRouter from '@modules/users/routes/profile.routers'
 import categoryRouter from '@modules/products/routes/category.routes'
 import productRouter from '@modules/products/routes/product.routes'
+import cartItemRouter from '@modules/cart-items/routes/cart.routes'
 
 const routes = Router()
 
@@ -18,5 +19,6 @@ routes.use('/profile', profileRouter)
 routes.use('/category', categoryRouter)
 routes.use('/product', productRouter)
 routes.use('/password', passwordRouter)
+routes.use('/cart-item', cartItemRouter)
 
 export default routes
