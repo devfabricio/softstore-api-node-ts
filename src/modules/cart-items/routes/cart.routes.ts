@@ -6,5 +6,7 @@ const cartItemController = new CartItemController()
 
 cartItemRouter.post('/', cartItemController.create)
 cartItemRouter.get('/:user', cartItemController.index)
+cartItemRouter.delete('/:id', cartItemController.delete)
+cartItemRouter.put('/', cartItemController.update)
 
 export default cartItemRouter

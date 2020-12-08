@@ -18,6 +18,10 @@ export default class CartItemRepository implements ICartItemRepository {
     return await product.save()
   }
 
+  async findById (id: string): Promise<ICartItemResponse> {
+    return this.repository.findById(id)
+  }
+
   async findByUser (user: string): Promise<ICartItemResponse[]> {
     return this.repository.find({ user: user }).populate('product')
   }
