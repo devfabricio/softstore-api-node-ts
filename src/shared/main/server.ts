@@ -5,6 +5,7 @@ import cors from 'cors'
 import routes from './routes'
 import AppError from '../errors/app-error'
 import { connectDB } from '../infra/database'
+import { Server } from 'socket.io'
 
 const app = express()
 
@@ -30,8 +31,12 @@ app.use((err: Error, req: Request, res: Response, _: NextFunction) => {
 
 const appListen = (): void => {
   connectDB().then(() => {
-    app.listen(3333, () => {
+    const server = app.listen(3333, () => {
       console.log('Server started on port 3333')
+    })
+    const io = new Server(server)
+    io.on('connection', () => {
+      console.log('Client connection')
     })
   })
     .catch(err => console.log(err))
