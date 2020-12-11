@@ -2,4 +2,5 @@ import { IMessageModel, IMessageResponse } from '@modules/messages/infra/schemas
 
 export default interface IMessageRepository {
   create(data: IMessageModel): Promise<IMessageResponse>
+  findByInboxMessage(messageInbox: string): Promise<IMessageResponse[]>
 }

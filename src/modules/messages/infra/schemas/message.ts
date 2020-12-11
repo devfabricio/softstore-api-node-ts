@@ -7,6 +7,7 @@ export interface IMessageModel {
   user: string | IUserModel
   administrator: string | IAdministratorModel
   messageInbox: string | IMessageInboxModel
+  sender: string
   messageText?: string
   messageImg?: string
   messageProduct?: string
@@ -27,6 +28,10 @@ const MessageSchema = new Schema({
   administrator: {
     type: Schema.Types.ObjectId,
     ref: 'Administrator',
+    required: true
+  },
+  sender: {
+    type: Schema.Types.ObjectId,
     required: true
   },
   messageInbox: {

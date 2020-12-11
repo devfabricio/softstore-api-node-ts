@@ -11,13 +11,13 @@ export default class CreateMessageService {
   ) {}
 
   public async execute (body: any): Promise<IMessageResponse> {
-    const requiredFields = ['sender', 'receiver']
+    const requiredFields = ['user', 'administrator', 'sender']
     for (const field of requiredFields) {
       if (!body[field]) {
         throw new AppError(`Missing param: ${field}`)
       }
     }
-    const { user, administrator, messageInbox, messageText, messageImg, messageProduct } = body
+    const { user, administrator, sender, messageInbox, messageText, messageImg, messageProduct } = body
 
     let inbox: IMessageInboxResponse
 
@@ -32,7 +32,7 @@ export default class CreateMessageService {
       inbox = await this.messageInboxRepository.create({ user, administrator, read: false, lastMessageText: messageText })
     }
 
-    const message: IMessageModel = { user, administrator, messageInbox: inbox._id }
+    const message: IMessageModel = { user, administrator, sender, messageInbox: inbox._id }
 
     if (messageText) {
       message.messageText = messageText

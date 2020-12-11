@@ -8,6 +8,7 @@ import profileRouter from '@modules/users/routes/profile.routers'
 import categoryRouter from '@modules/products/routes/category.routes'
 import productRouter from '@modules/products/routes/product.routes'
 import cartItemRouter from '@modules/cart-items/routes/cart.routes'
+import messageRouter from '@modules/messages/routes/message.routes'
 
 const routes = Router()
 
@@ -18,6 +19,7 @@ routes.use('/user', usersRouter)
 routes.use('/profile', profileRouter)
 routes.use('/category', categoryRouter)
 routes.use('/product', productRouter)
+routes.use('/message', messageRouter)
 routes.use('/password', passwordRouter)
 routes.use('/cart-item', cartItemRouter)
 

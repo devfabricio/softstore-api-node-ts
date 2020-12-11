@@ -13,4 +13,10 @@ export default class MessageRepository implements IMessageRepository {
     const message = await this.repository.create(data)
     return await message.save()
   }
+
+  async findByInboxMessage (messageInbox: string): Promise<IMessageResponse[]> {
+    return this.repository.find({ messageInbox })
+      .populate('user')
+      .populate('administrator')
+  }
 }
