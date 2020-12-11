@@ -11,8 +11,7 @@ export const isAdminAuth = (request: Request, response: Response, next: NextFunc
 
   const [, token] = authHeader.split(' ')
   try {
-    const decoded = verify(token, authConfig.jwt.admin_secret)
-    console.log(decoded)
+    verify(token, authConfig.jwt.admin_secret)
     return next()
   } catch (error) {
     throw new AppError('Not Authorized', 401)

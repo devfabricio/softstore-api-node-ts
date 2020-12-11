@@ -5,6 +5,7 @@ import { Server } from 'http'
 let io: SocketIO.Server
 
 export const socketio = (httpServer: Server): SocketIO.Server => {
+  console.log(!!io)
   io = new SocketIO.Server(httpServer, {
     cors: {
       origin: '*'
