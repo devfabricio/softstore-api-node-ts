@@ -40,7 +40,8 @@ class App {
       }
       return res.status(500).json({
         status: 'error',
-        message: 'Internal server error'
+        message: 'Internal server error',
+        datails: err.message
       })
     })
   }
@@ -49,7 +50,7 @@ class App {
     this.server = createServer(this.app)
     this.io = new SocketIO.Server(this.server, {
       cors: {
-        origin: 'http://localhost:3000'
+        origin: ['http://localhost:3000', 'http://localhost:3001']
       }
     })
   }

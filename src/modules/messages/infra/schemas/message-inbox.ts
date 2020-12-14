@@ -1,11 +1,10 @@
 import { Document, Schema, model } from 'mongoose'
 import { IUserModel } from '@modules/users/infra/schemas/user'
-import { IAdministratorModel } from '@modules/administrators/infra/schemas/administrator'
 
 export interface IMessageInboxModel {
   user: string | IUserModel
-  administrator: string | IAdministratorModel
   read: boolean
+  lastSender: string
   lastMessageText: string
 }
 
@@ -21,13 +20,12 @@ const MessageInboxSchema = new Schema({
     ref: 'User',
     required: true
   },
-  administrator: {
-    type: Schema.Types.ObjectId,
-    ref: 'Administrator',
-    required: true
-  },
   read: {
     type: Boolean,
+    required: true
+  },
+  lastSender: {
+    type: String,
     required: true
   },
   lastMessageText: {

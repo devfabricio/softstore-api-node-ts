@@ -9,6 +9,7 @@ import categoryRouter from '@modules/products/routes/category.routes'
 import productRouter from '@modules/products/routes/product.routes'
 import cartItemRouter from '@modules/cart-items/routes/cart.routes'
 import messageRouter from '@modules/messages/routes/message.routes'
+import messageInboxRouter from '@modules/messages/routes/message-inbox.routes'
 
 const routes = Router()
 
@@ -20,6 +21,7 @@ routes.use('/profile', profileRouter)
 routes.use('/category', categoryRouter)
 routes.use('/product', productRouter)
 routes.use('/message', messageRouter)
+routes.use('/message-inbox', messageInboxRouter)
 routes.use('/password', passwordRouter)
 routes.use('/cart-item', cartItemRouter)
 

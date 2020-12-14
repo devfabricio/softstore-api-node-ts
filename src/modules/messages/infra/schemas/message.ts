@@ -1,11 +1,9 @@
 import { Document, Schema, model } from 'mongoose'
 import { IUserModel } from '@modules/users/infra/schemas/user'
-import { IAdministratorModel } from '@modules/administrators/infra/schemas/administrator'
 import { IMessageInboxModel } from '@modules/messages/infra/schemas/message-inbox'
 
 export interface IMessageModel {
   user: string | IUserModel
-  administrator: string | IAdministratorModel
   messageInbox: string | IMessageInboxModel
   sender: string
   messageText?: string
@@ -25,13 +23,8 @@ const MessageSchema = new Schema({
     ref: 'User',
     required: true
   },
-  administrator: {
-    type: Schema.Types.ObjectId,
-    ref: 'Administrator',
-    required: true
-  },
   sender: {
-    type: Schema.Types.ObjectId,
+    type: String,
     required: true
   },
   messageInbox: {
