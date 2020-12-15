@@ -5,6 +5,7 @@ export interface IUserModel {
   email: string
   password: string
   phone?: string
+  messageInbox?: string
   profileImg?: string
 }
 
@@ -34,7 +35,12 @@ const UserSchema = new Schema({
   profileImg: {
     type: String,
     required: false
+  },
+  messageInbox: {
+    type: Schema.Types.ObjectId,
+    ref: 'MessageInbox',
+    required: true
   }
-})
+}, { timestamps: true })
 
 export default model<IUserDocument>('User', UserSchema)

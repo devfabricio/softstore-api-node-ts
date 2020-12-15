@@ -3,9 +3,11 @@ import { IMessageModel, IMessageResponse } from '@modules/messages/infra/schemas
 import IMessageRepository from '@modules/messages/infra/repositories/protocols/i-message-repository'
 import IMessageInboxRepository from '@modules/messages/infra/repositories/protocols/i-message-inbox-repository'
 import { IMessageInboxResponse } from '@modules/messages/infra/schemas/message-inbox'
+import IUserRepository from '@modules/users/infra/repositories/protocols/i-user-repository'
 
 export default class CreateMessageService {
   constructor (
+    private readonly userRepository: IUserRepository,
     private readonly messageRepository: IMessageRepository,
     private readonly messageInboxRepository: IMessageInboxRepository
   ) {}
@@ -31,6 +33,9 @@ export default class CreateMessageService {
       await this.messageInboxRepository.save(inbox)
     } else {
       inbox = await this.messageInboxRepository.create({ user, read: false, lastSender: sender, lastMessageText: messageText })
+      const userObj = await this.userRepository.findById(user)
+      userObj.messageInbox = inbox._id
+      await this.userRepository.save(userObj)
     }
 
     const message: IMessageModel = { user, sender, messageInbox: inbox._id }
