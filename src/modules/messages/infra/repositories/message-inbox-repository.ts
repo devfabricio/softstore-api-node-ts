@@ -14,7 +14,7 @@ export default class MessageInboxRepository implements IMessageInboxRepository {
   }
 
   async find (): Promise<IMessageInboxResponse[]> {
-    return this.repository.find().populate('sender')
+    return this.repository.find().populate('user')
   }
 
   async findById (id: string): Promise<IMessageInboxResponse> {
