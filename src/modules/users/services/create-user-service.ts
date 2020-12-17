@@ -4,6 +4,7 @@ import AppError from '@shared/errors/app-error'
 import IUserRepository from '@modules/users/infra/repositories/protocols/i-user-repository'
 import IBcryptAdapter from '@shared/infra/adapters/protocols/i-bcrypt-adapter'
 import IEmailValidatorAdapter from '@shared/infra/adapters/protocols/i-email-validator-adapter'
+import { format } from 'date-fns'
 
 export class CreateUserService {
   constructor (
@@ -38,7 +39,8 @@ export class CreateUserService {
     return await this.usersRepository.create({
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      lastMessageReadAt: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx")
     })
   }
 }

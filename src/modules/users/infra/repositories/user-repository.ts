@@ -1,6 +1,5 @@
-import UserSchema, { IResponseUserModel, IUserDocument } from '@modules/users/infra/schemas/user'
+import UserSchema, { IResponseUserModel, IUserDocument, IUserModel } from '@modules/users/infra/schemas/user'
 import IUserRepository from '@modules/users/infra/repositories/protocols/i-user-repository'
-import ICreateUserDTO from '@modules/users/dtos/i-create-user-dto'
 import { Model } from 'mongoose'
 
 export class UserRepository implements IUserRepository {
@@ -10,8 +9,8 @@ export class UserRepository implements IUserRepository {
     this.repository = UserSchema
   }
 
-  async create ({ name, email, password }: ICreateUserDTO): Promise<IResponseUserModel> {
-    return await this.repository.create({ name, email, password })
+  async create ({ name, email, password, lastMessageReadAt }: IUserModel): Promise<IResponseUserModel> {
+    return await this.repository.create({ name, email, password, lastMessageReadAt })
   }
 
   async findByEmail (email: string): Promise<IResponseUserModel> {
@@ -23,6 +22,7 @@ export class UserRepository implements IUserRepository {
   }
 
   async save (user: IResponseUserModel): Promise<IResponseUserModel> {
+    console.log(user)
     return this.repository.updateOne({ _id: user._id },{ $set: { ...user } })
   }
 }

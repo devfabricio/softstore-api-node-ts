@@ -1,11 +1,11 @@
 import { sign } from 'jsonwebtoken'
-import { IResponseUserModel } from '@modules/users/infra/schemas/user'
 import AppError from '@shared/errors/app-error'
 import IBcryptAdapter from '@shared/infra/adapters/protocols/i-bcrypt-adapter'
 import IAdministratorRepository from '@modules/administrators/infra/repositories/protocols/i-administrator-repository'
+import { IResponseAdministratorModel } from '@modules/administrators/infra/schemas/administrator'
 
 interface IResponse {
-  administrator: IResponseUserModel
+  administrator: IResponseAdministratorModel
   token: string
 }
 

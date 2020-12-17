@@ -16,7 +16,7 @@ export default class UpdateUserProfileService {
       }
     }
 
-    const { _id, name, email, password, oldPassword } = body
+    const { _id, name, email, password, oldPassword, lastMessageReadAt } = body
 
     const user = await this.usersRepository.findById(_id)
     if (!user) {
@@ -33,6 +33,11 @@ export default class UpdateUserProfileService {
 
     if (name !== user.name) {
       user.name = name
+    }
+    console.log('UpdateUserProfileService')
+    console.log(lastMessageReadAt !== user.lastMessageReadAt)
+    if (lastMessageReadAt !== user.lastMessageReadAt) {
+      user.lastMessageReadAt = lastMessageReadAt
     }
 
     if (password && !oldPassword) {

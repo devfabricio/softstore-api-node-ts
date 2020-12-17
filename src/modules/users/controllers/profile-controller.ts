@@ -14,7 +14,6 @@ export default class ProfileController implements IController {
   async update (request: Request, response: Response): Promise<Response> {
     const body = request.body
     const updateProfile = makeUpdateUserProfileService()
-
     const user = await updateProfile.execute(body)
     delete user.password
     return response.json(user)
