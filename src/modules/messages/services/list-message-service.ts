@@ -6,10 +6,11 @@ export default class ListMessageService {
   constructor (
     private readonly messageRepository: IMessageRepository) {}
 
-  public async execute (messageInbox?: string): Promise<IMessageResponse[]> {
+  public async execute (page: number, messageInbox?: string): Promise<IMessageResponse[]> {
     if (!messageInbox) {
       throw new AppError('Missing param: messageInbox')
     }
-    return await this.messageRepository.findByInboxMessage(messageInbox)
+
+    return await this.messageRepository.findByInboxMessage(messageInbox, page)
   }
 }

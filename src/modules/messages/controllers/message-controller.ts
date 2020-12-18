@@ -14,8 +14,12 @@ export default class MessageController implements IController {
 
   async index (request: Request, response: Response): Promise<Response> {
     const messageInbox = request.params.messageInbox
+    let page = 1
+    if (request.query.page) {
+      page = Number(request.query.page)
+    }
     const listMessageService = makeListMessageService()
-    const messages = await listMessageService.execute(messageInbox)
+    const messages = await listMessageService.execute(page, messageInbox)
     return response.status(200).json(messages)
   }
 }

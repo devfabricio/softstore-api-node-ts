@@ -4,7 +4,7 @@ import MessageSchema, { IMessageDocument, IMessageModel, IMessageResponse } from
 
 export default class MessageRepository implements IMessageRepository {
   private readonly repository: Model<IMessageDocument>
-
+  private readonly itemsPerPage = 15
   constructor () {
     this.repository = MessageSchema
   }
@@ -14,9 +14,11 @@ export default class MessageRepository implements IMessageRepository {
     return await message.save()
   }
 
-  async findByInboxMessage (messageInbox: string): Promise<IMessageResponse[]> {
+  async findByInboxMessage (messageInbox: string, page: number): Promise<IMessageResponse[]> {
     return this.repository.find({ messageInbox })
       .populate('user')
-      .populate('administrator')
+      .limit(this.itemsPerPage)
+      .skip((page - 1) * page)
+      .sort({ createdAt: 'desc' })
   }
 }
