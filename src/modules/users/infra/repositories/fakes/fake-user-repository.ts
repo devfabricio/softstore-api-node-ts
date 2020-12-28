@@ -1,11 +1,10 @@
 import IUserRepository from '@modules/users/infra/repositories/protocols/i-user-repository'
-import { IResponseUserModel } from '@modules/users/infra/schemas/user'
-import ICreateUserDTO from '@modules/users/dtos/i-create-user-dto'
+import { IResponseUserModel, IUserModel } from '@modules/users/infra/schemas/user'
 
 export class FakeUserRepository implements IUserRepository {
   private readonly users: IResponseUserModel[] = []
 
-  public async create (userData: ICreateUserDTO): Promise<IResponseUserModel> {
+  public async create (userData: IUserModel): Promise<IResponseUserModel> {
     const user = { _id: 'any_id', ...userData }
     this.users.push(user)
     return user
