@@ -37,4 +37,9 @@ export default class ProductRepository implements IProductRepository {
   async save (product: IProductResponse): Promise<IProductResponse> {
     return this.repository.updateOne({ _id: product._id },{ $set: { ...product } })
   }
+
+  async delete (id: string): Promise<boolean> {
+    await this.repository.findByIdAndDelete(id)
+    return true
+  }
 }

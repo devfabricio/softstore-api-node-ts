@@ -6,6 +6,7 @@ import {
   makeShowProductService,
   makeUpdateProductService
 } from '@modules/products/factories'
+import { makeDeleteProductService } from '@modules/products/factories/product/make-delete-product-service'
 
 export default class ProductController implements IController {
   async create (request: Request, response: Response): Promise<Response> {
@@ -37,5 +38,12 @@ export default class ProductController implements IController {
     const updateProductService = makeUpdateProductService()
     const product = await updateProductService.execute(request.body)
     return response.status(200).json(product)
+  }
+
+  async delete (request: Request, response: Response): Promise<Response> {
+    const id = request.params.id
+    const deleteProductService = makeDeleteProductService()
+    await deleteProductService.execute(id)
+    return response.status(204).json()
   }
 }

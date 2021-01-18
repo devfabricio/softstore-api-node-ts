@@ -9,6 +9,8 @@ const categoryController = new CategoryController()
 const addProductQuantityInCategoryController = new AddProductQuantityInCategoryController()
 
 categoryRouter.get('/', categoryController.index)
+categoryRouter.get('/i/:id', categoryController.show)
+categoryRouter.get('/s/:slug', categoryController.show)
 categoryRouter.delete('/:id', isAdminAuth, categoryController.delete)
 categoryRouter.post('/', isAdminAuth, categoryController.create)
 categoryRouter.put('/', isAdminAuth, categoryController.update)

@@ -1,4 +1,4 @@
-import { CreateUserService } from '@modules/users/services/create-user-service'
+import { CreateUserService } from '@modules/users/services/user/create-user-service'
 import { UserRepository } from '@modules/users/infra/repositories/user-repository'
 import BcryptAdater from '@shared/infra/adapters/bcrypt-adater'
 import { EmailValidatorAdapter } from '@shared/infra/adapters/email-validator-adapter'

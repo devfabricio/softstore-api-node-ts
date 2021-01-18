@@ -24,6 +24,10 @@ export default class CategoryRepository implements ICategoryRepository {
     return this.repository.findById(id)
   }
 
+  async findBySlug (slug: string): Promise<ICategoryResponse> {
+    return this.repository.findOne({ slug }).populate('category')
+  }
+
   async findByName (name: string): Promise<ICategoryResponse> {
     return this.repository.findOne({ name })
   }

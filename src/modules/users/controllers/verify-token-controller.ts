@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { IController } from '@shared/protocols/i-controller'
-import VerifyTokenService from '@modules/users/services/verify-token-service'
+import VerifyTokenService from '@modules/users/services/authentication/verify-token-service'
 
 class VerifyTokenController implements IController {
   public async create (request: Request, response: Response): Promise<Response> {

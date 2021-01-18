@@ -11,5 +11,6 @@ productRouter.get('/s/:slug', productController.show)
 productRouter.get('/category/:category', productController.index)
 productRouter.post('/', isAdminAuth, productController.create)
 productRouter.put('/', isAdminAuth, productController.update)
+productRouter.delete('/:id', productController.delete)
 
 export default productRouter

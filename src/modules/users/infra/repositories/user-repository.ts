@@ -13,6 +13,10 @@ export class UserRepository implements IUserRepository {
     return await this.repository.create({ name, email, password, lastMessageReadAt })
   }
 
+  async find (): Promise<IResponseUserModel[]> {
+    return this.repository.find()
+  }
+
   async findByEmail (email: string): Promise<IResponseUserModel> {
     return this.repository.findOne({ email })
   }
@@ -24,5 +28,10 @@ export class UserRepository implements IUserRepository {
   async save (user: IResponseUserModel): Promise<IResponseUserModel> {
     console.log(user)
     return this.repository.updateOne({ _id: user._id },{ $set: { ...user } })
+  }
+
+  async delete (id: string): Promise<boolean> {
+    await this.repository.findByIdAndDelete(id)
+    return true
   }
 }

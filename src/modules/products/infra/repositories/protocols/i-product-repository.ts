@@ -8,4 +8,5 @@ export default interface IProductRepository {
   findByName(name: string): Promise<IProductResponse>
   findBySlug (slug: string): Promise<IProductResponse>
   save (product: IProductResponse): Promise<IProductResponse>
+  delete (id: string): Promise<boolean>
 }
