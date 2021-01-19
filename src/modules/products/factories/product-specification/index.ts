@@ -1,0 +1,5 @@
+export * from './make-create-product-specification-service'
+export * from './make-delete-product-specification-service'
+export * from './make-list-product-specification-service'
+export * from './make-show-product-specification-service'
+export * from './make-update-product-specification-service'

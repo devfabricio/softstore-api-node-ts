@@ -14,6 +14,8 @@ import messageInboxRouter from '@modules/messages/routes/message-inbox.routes'
 import postCategoryRouter from '@modules/posts/routes/post-category.routes'
 import postRouter from '@modules/posts/routes/post.routes'
 import colorRouter from '@modules/products/routes/color.routes'
+import productSpecificationRouter from '@modules/products/routes/product-specification.routes'
+import productPhotoRouter from '@modules/products/routes/product-photo.routes'
 
 const routes = Router()
 
@@ -24,6 +26,8 @@ routes.use('/user', usersRouter)
 routes.use('/profile', profileRouter)
 routes.use('/category', categoryRouter)
 routes.use('/product', productRouter)
+routes.use('/product-specification', productSpecificationRouter)
+routes.use('/product-photo', productPhotoRouter)
 routes.use('/color', colorRouter)
 routes.use('/post-category', postCategoryRouter)
 routes.use('/post', postRouter)

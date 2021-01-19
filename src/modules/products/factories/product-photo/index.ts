@@ -1,0 +1,5 @@
+export * from './make-create-product-photo-service'
+export * from './make-delete-product-photo-service'
+export * from './make-list-product-photo-service'
+export * from './make-show-product-photo-service'
+export * from './make-update-product-photo-service'
