@@ -16,6 +16,10 @@ import postRouter from '@modules/posts/routes/post.routes'
 import colorRouter from '@modules/products/routes/color.routes'
 import productSpecificationRouter from '@modules/products/routes/product-specification.routes'
 import productPhotoRouter from '@modules/products/routes/product-photo.routes'
+import customizedImageRouter from '@modules/customized-image/routes/customized-image.routes'
+import customizedImageGroupRouter from '@modules/customized-image/routes/customized-image-group.routes'
+import customizedImageGroupRelationRouter
+  from '@modules/customized-image/routes/customized-image-group-relation.routes'
 
 const routes = Router()
 
@@ -28,6 +32,9 @@ routes.use('/category', categoryRouter)
 routes.use('/product', productRouter)
 routes.use('/product-specification', productSpecificationRouter)
 routes.use('/product-photo', productPhotoRouter)
+routes.use('/customized-image', customizedImageRouter)
+routes.use('/customized-image-group', customizedImageGroupRouter)
+routes.use('/customized-image-group-relation', customizedImageGroupRelationRouter)
 routes.use('/color', colorRouter)
 routes.use('/post-category', postCategoryRouter)
 routes.use('/post', postRouter)
