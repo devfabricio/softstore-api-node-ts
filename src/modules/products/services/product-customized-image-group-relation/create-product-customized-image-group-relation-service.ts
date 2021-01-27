@@ -15,8 +15,6 @@ export default class CreateProductCustomizedImageGroupRelationService {
       }
     }
 
-    const { any } = body
-
-    return await this.productCustomizedImageGroupRelationRepository.create({ any })
+    return await this.productCustomizedImageGroupRelationRepository.create(body)
   }
 }

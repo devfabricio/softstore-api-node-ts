@@ -2,8 +2,9 @@ import { IProductSpecificationModel, IProductSpecificationResponse } from '@modu
 
 export default interface IProductSpecificationRepository {
   create(data: IProductSpecificationModel): Promise<IProductSpecificationResponse>
-  find(productId: string): Promise<IProductSpecificationResponse[]>
+  find(): Promise<IProductSpecificationResponse[]>
   findById(id: string): Promise<IProductSpecificationResponse>
+  findByProduct(productId: string): Promise<IProductSpecificationResponse[]>
   delete (id: string): Promise<boolean>
   save (data: IProductSpecificationModel): Promise<IProductSpecificationResponse>
 }

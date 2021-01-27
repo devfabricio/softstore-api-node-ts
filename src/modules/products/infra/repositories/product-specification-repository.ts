@@ -18,7 +18,11 @@ export default class ProductSpecificationRepository implements IProductSpecifica
     return true
   }
 
-  async find (productId: string): Promise<IProductSpecificationResponse[]> {
+  async find (): Promise<IProductSpecificationResponse[]> {
+    return this.repository.find()
+  }
+
+  async findByProduct (productId: string): Promise<IProductSpecificationResponse[]> {
     return this.repository.find({ product: productId })
   }
 

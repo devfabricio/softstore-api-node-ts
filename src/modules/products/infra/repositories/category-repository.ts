@@ -1,6 +1,6 @@
 import ICategoryRepository from './protocols/i-category-repository'
 import Category, {
-  ICategoryDocument,
+  ICategoryDocument, ICategoryModel,
   ICategoryResponse
 } from '../schemas/category'
 import { Model } from 'mongoose'
@@ -13,11 +13,31 @@ export default class CategoryRepository implements ICategoryRepository {
   }
 
   async find (): Promise<ICategoryResponse[]> {
-    return this.repository.find()
+    return this.repository.find().populate({
+      path: 'parent',
+      populate: [{
+        path: 'parent',
+        populate: {
+          path: 'parent',
+          populate: {
+            path: 'parent',
+            populate: {
+              path: 'parent',
+              populate: {
+                path: 'parent',
+                populate: {
+                  path: 'parent'
+                }
+              }
+            }
+          }
+        }
+      }]
+    })
   }
 
-  async create (name: string, slug: string): Promise<ICategoryResponse> {
-    return await this.repository.create({ name, slug, productCounter: 0 })
+  async create (data: ICategoryModel): Promise<ICategoryResponse> {
+    return await this.repository.create(data)
   }
 
   async findById (id: string): Promise<ICategoryResponse> {

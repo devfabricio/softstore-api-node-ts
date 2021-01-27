@@ -1,0 +1,5 @@
+export * from './make-create-category-relationship-service'
+export * from './make-delete-category-relationship-service'
+export * from './make-list-category-relationship-service'
+export * from './make-show-category-relationship-service'
+export * from './make-update-category-relationship-service'

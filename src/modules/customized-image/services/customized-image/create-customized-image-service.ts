@@ -9,19 +9,24 @@ export default class CreateCustomizedImageService {
   }
 
   async execute (body: any): Promise<ICustomizedImageResponse> {
-    const requiredFields = ['url']
+    const requiredFields = ['url', 'thumbUrl']
     for (const field of requiredFields) {
       if (!body[field]) {
         throw new AppError(`Missing param: ${field}`)
       }
     }
 
-    const { url } = body
-    const image: ICustomizedImageModel = { url, height: 0, width: 0 }
+    const { url, thumbUrl } = body
+    console.log(body)
+    const image: ICustomizedImageModel = { url, thumbUrl, height: 0, width: 0, thumbWidth: 0, thumbHeight: 0 }
 
     const imageSize = await getImageSize(url)
+    const thumbImageSize = await getImageSize(thumbUrl)
     image.width = imageSize.width
     image.height = imageSize.height
+    image.thumbWidth = thumbImageSize.width
+    image.thumbHeight = thumbImageSize.height
+    console.log(image)
 
     return await this.customizedImageRepository.create(image)
   }

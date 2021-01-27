@@ -1,13 +1,11 @@
 import AppError from '@shared/errors/app-error'
 import IProductRepository from '@modules/products/infra/repositories/protocols/i-product-repository'
-import ICategoryRepository from '@modules/products/infra/repositories/protocols/i-category-repository'
 import ITextFormatter from '@shared/helpers/protocols/i-text-formatter'
 import { IProductResponse } from '@modules/products/infra/schemas/product'
 
 export default class UpdateProductService {
   constructor (
     private readonly productRepository: IProductRepository,
-    private readonly categoryRepository: ICategoryRepository,
     private readonly textFormatter: ITextFormatter) {}
 
   public async execute (body: any): Promise<IProductResponse> {
@@ -18,7 +16,7 @@ export default class UpdateProductService {
       }
     }
 
-    const { _id, name, description, thumbImg, price, oldPrice, category } = body
+    const { _id, name, description, thumbImg, price, oldPrice } = body
 
     const product = await this.productRepository.findById(_id)
     if (!product) {
@@ -34,14 +32,6 @@ export default class UpdateProductService {
       const slug = this.textFormatter.slugConverter(productName)
       product.name = name
       product.slug = slug
-    }
-
-    if (category !== product.category) {
-      const checkIfCategoryExists = await this.categoryRepository.findById(category)
-      if (!checkIfCategoryExists) {
-        throw new AppError('Invalid product primary category')
-      }
-      product.category = category
     }
 
     product.description = description

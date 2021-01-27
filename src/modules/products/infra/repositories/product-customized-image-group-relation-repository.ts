@@ -26,6 +26,10 @@ export default class ProductCustomizedImageGroupRelationRepository implements IP
     return this.repository.findById(id)
   }
 
+  async findByProduct (productId: string): Promise<IProductCustomizedImageGroupRelationResponse[]> {
+    return this.repository.find({ product: productId })
+  }
+
   async save (data: IProductCustomizedImageGroupRelationResponse): Promise<IProductCustomizedImageGroupRelationResponse> {
     return this.repository.updateOne({ _id: data._id },{ $set: { ...data } })
   }

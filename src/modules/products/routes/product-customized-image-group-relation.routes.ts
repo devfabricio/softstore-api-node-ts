@@ -6,6 +6,7 @@ const productCustomizedImageGroupRelationRouter = Router()
 const productCustomizedImageGroupRelationController = new ProductCustomizedImageGroupRelationController()
 
 productCustomizedImageGroupRelationRouter.get('/', productCustomizedImageGroupRelationController.index)
+productCustomizedImageGroupRelationRouter.get('/product/:productId', productCustomizedImageGroupRelationController.index)
 productCustomizedImageGroupRelationRouter.get('/:id', productCustomizedImageGroupRelationController.show)
 productCustomizedImageGroupRelationRouter.delete('/:id', productCustomizedImageGroupRelationController.delete)
 productCustomizedImageGroupRelationRouter.post('/', isAdminAuth, productCustomizedImageGroupRelationController.create)

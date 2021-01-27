@@ -1,15 +1,16 @@
 import { Request, Response } from 'express'
 import { IController } from '@shared/protocols/i-controller'
-import { makeUpdateProductCustomizedImageGroupRelationService } from '@modules/products/factories/make-update-product-customized-image-group-relation-service'
-import { makeCreateProductCustomizedImageGroupRelationService } from '@modules/products/factories/make-create-product-customized-image-group-relation-service'
-import { makeListProductCustomizedImageGroupRelationService } from '@modules/products/factories/make-list-product-customized-image-group-relation-service'
-import { makeShowProductCustomizedImageGroupRelationService } from '@modules/products/factories/make-show-product-customized-image-group-relation-service'
-import { makeDeleteProductCustomizedImageGroupRelationService } from '@modules/products/factories/make-delete-product-customized-image-group-relation-service'
+import { makeListProductCustomizedImageGroupRelationService } from '@modules/products/factories/product-customized-image-group-relation/make-list-product-customized-image-group-relation-service'
+import { makeCreateProductCustomizedImageGroupRelationService } from '@modules/products/factories/product-customized-image-group-relation/make-create-product-customized-image-group-relation-service'
+import { makeUpdateProductCustomizedImageGroupRelationService } from '@modules/products/factories/product-customized-image-group-relation/make-update-product-customized-image-group-relation-service'
+import { makeShowProductCustomizedImageGroupRelationService } from '@modules/products/factories/product-customized-image-group-relation/make-show-product-customized-image-group-relation-service'
+import { makeDeleteProductCustomizedImageGroupRelationService } from '@modules/products/factories/product-customized-image-group-relation/make-delete-product-customized-image-group-relation-service'
 
 export default class ProductCustomizedImageGroupRelationController implements IController {
   async index (request: Request, response: Response): Promise<Response> {
     const listProductCustomizedImageGroupRelationService = makeListProductCustomizedImageGroupRelationService()
-    const productCustomizedImageGroupRelationList = await listProductCustomizedImageGroupRelationService.execute()
+    const productId = request.params.productId
+    const productCustomizedImageGroupRelationList = await listProductCustomizedImageGroupRelationService.execute({ productId })
     return response.status(200).json(productCustomizedImageGroupRelationList)
   }
 

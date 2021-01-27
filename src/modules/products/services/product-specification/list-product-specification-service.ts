@@ -5,7 +5,11 @@ export default class ListProductSpecificationService {
   constructor (
     private readonly productSpecificationRepository: IProductSpecificationRepository) {}
 
-  public async execute (productId: string): Promise<IProductSpecificationResponse[]> {
-    return await this.productSpecificationRepository.find(productId)
+  public async execute (body: any): Promise<IProductSpecificationResponse[]> {
+    const { productId } = body
+    if (productId) {
+      return await this.productSpecificationRepository.findByProduct(productId)
+    }
+    return await this.productSpecificationRepository.find()
   }
 }

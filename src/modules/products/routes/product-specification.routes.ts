@@ -5,7 +5,8 @@ import ProductSpecificationController from '@modules/products/controllers/produc
 const productSpecificationRouter = Router()
 const productSpecificationController = new ProductSpecificationController()
 
-productSpecificationRouter.get('/:productId', productSpecificationController.index)
+productSpecificationRouter.get('/', productSpecificationController.index)
+productSpecificationRouter.get('/product/:productId', productSpecificationController.index)
 productSpecificationRouter.get('/:id', productSpecificationController.show)
 productSpecificationRouter.delete('/:id', isAdminAuth, productSpecificationController.delete)
 productSpecificationRouter.post('/', isAdminAuth, productSpecificationController.create)

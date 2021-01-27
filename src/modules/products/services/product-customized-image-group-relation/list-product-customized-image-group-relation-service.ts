@@ -5,7 +5,11 @@ export default class ListProductCustomizedImageGroupRelationService {
   constructor (
     private readonly productCustomizedImageGroupRelationRepository: IProductCustomizedImageGroupRelationRepository) {}
 
-  public async execute (): Promise<IProductCustomizedImageGroupRelationResponse[]> {
+  public async execute (body: any): Promise<IProductCustomizedImageGroupRelationResponse[]> {
+    const { productId } = body
+    if (productId) {
+      return await this.productCustomizedImageGroupRelationRepository.findByProduct(productId)
+    }
     return await this.productCustomizedImageGroupRelationRepository.find()
   }
 }

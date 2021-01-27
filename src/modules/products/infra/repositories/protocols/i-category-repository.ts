@@ -1,8 +1,8 @@
-import { ICategoryResponse } from '@modules/products/infra/schemas/category'
+import { ICategoryModel, ICategoryResponse } from '@modules/products/infra/schemas/category'
 
 export default interface ICategoryRepository {
   find(): Promise<ICategoryResponse[]>
-  create(name: string, slug: string): Promise<ICategoryResponse>
+  create(data: ICategoryModel): Promise<ICategoryResponse>
   findById(id: string): Promise<ICategoryResponse>
   findBySlug (slug: string): Promise<ICategoryResponse>
   findByName(name: string): Promise<ICategoryResponse>

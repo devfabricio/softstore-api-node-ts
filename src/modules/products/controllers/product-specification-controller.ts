@@ -9,7 +9,7 @@ export default class ProductSpecificationController implements IController {
   async index (request: Request, response: Response): Promise<Response> {
     const listProductSpecificationService = makeListProductSpecificationService()
     const productId = request.params.productId
-    const productSpecificationList = await listProductSpecificationService.execute(productId)
+    const productSpecificationList = await listProductSpecificationService.execute({ productId })
     return response.status(200).json(productSpecificationList)
   }
 

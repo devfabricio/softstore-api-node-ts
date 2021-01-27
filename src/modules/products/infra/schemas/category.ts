@@ -3,6 +3,7 @@ import { Document, Schema, model } from 'mongoose'
 export interface ICategoryModel {
   name: string
   slug: string
+  parent?: string | ICategoryModel
   productCounter: number
 }
 
@@ -20,6 +21,11 @@ const CategorySchema = new Schema({
   slug: {
     type: String,
     required: true
+  },
+  parent: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
+    required: false
   },
   productCounter: {
     type: Number,
