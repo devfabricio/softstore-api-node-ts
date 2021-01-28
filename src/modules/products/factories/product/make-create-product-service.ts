@@ -7,16 +7,19 @@ import ProductCustomizedTextRepository from '@modules/products/infra/repositorie
 import ProductCustomizedImageGroupRelationRepository
   from '@modules/products/infra/repositories/product-customized-image-group-relation-repository'
 import ProductCategoryRepository from '@modules/products/infra/repositories/product-category-repository'
+import ProductPhotoRepository from '@modules/products/infra/repositories/product-photo-repository'
 
 export const makeCreateProductService = (): CreateProductService => {
   const productRepository = new ProductRepository()
   const productPrimaryCategoryRepository = new CategoryRepository()
   const textFormatter = new TextFormatter()
   const productCategoryRepository = new ProductCategoryRepository()
+  const productPhotoRepository = new ProductPhotoRepository()
   const productSpecificationRepository = new ProductSpecificationRepository()
   const productCustomizedTextController = new ProductCustomizedTextRepository()
   const productCustomizedImageGroupRelationRepository = new ProductCustomizedImageGroupRelationRepository()
+
   return new CreateProductService(productRepository, productPrimaryCategoryRepository,
     productSpecificationRepository, productCustomizedTextController, productCategoryRepository,
-    productCustomizedImageGroupRelationRepository, textFormatter)
+    productPhotoRepository, productCustomizedImageGroupRelationRepository, textFormatter)
 }

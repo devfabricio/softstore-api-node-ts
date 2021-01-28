@@ -27,7 +27,7 @@ export default class ProductPhotoRepository implements IProductPhotoRepository {
   }
 
   async findByProduct (productId: string): Promise<IProductPhotoResponse[]> {
-    return this.repository.find({ product: productId })
+    return this.repository.find({ product: productId }).sort('createdAt')
   }
 
   async save (data: IProductPhotoResponse): Promise<IProductPhotoResponse> {

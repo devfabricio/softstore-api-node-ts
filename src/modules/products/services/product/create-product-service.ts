@@ -10,6 +10,9 @@ import IProductCustomizedTextRepository
 import IProductCustomizedImageGroupRelationRepository
   from '@modules/products/infra/repositories/protocols/i-product-customized-image-group-relation-repository'
 import IProductCategoryRepository from '@modules/products/infra/repositories/protocols/i-product-category-repository'
+import IProductPhotoRepository from '@modules/products/infra/repositories/protocols/i-product-photo-repository'
+import { IProductPhotoModel } from '@modules/products/infra/schemas/product-photo'
+import { getImageSize } from '@shared/utils/image-size'
 
 export default class CreateProductService {
   constructor (
@@ -18,6 +21,7 @@ export default class CreateProductService {
     private readonly productSpecificationRepository: IProductSpecificationRepository,
     private readonly productCustomizedTextRepository: IProductCustomizedTextRepository,
     private readonly productCategoryRepository: IProductCategoryRepository,
+    private readonly productPhotoRepository: IProductPhotoRepository,
     private readonly productCustomizedImageGroupRelationRepository: IProductCustomizedImageGroupRelationRepository,
     private readonly textFormatter: ITextFormatter) {
   }
@@ -31,7 +35,7 @@ export default class CreateProductService {
     }
     const {
       name, description, thumbImg, price, oldPrice, category, productSpecificationName,
-      productSpecificationValue, productCustomizedText, imageGroup
+      productSpecificationValue, productCustomizedText, imageGroup, photos
     } = body
 
     const productName = this.textFormatter.trim(name)
@@ -80,6 +84,22 @@ export default class CreateProductService {
       })
     }
 
+    if (photos) {
+      photos.map(async (photo: { path: string, thumbPath: string }) => {
+        const imageSize = await getImageSize(`https://saboreio-storage.s3.amazonaws.com/${photo.path}`)
+        const thumbImageSize = await getImageSize(`https://saboreio-storage.s3.amazonaws.com/${photo.thumbPath}`)
+        const photoData: IProductPhotoModel = {
+          width: imageSize.width,
+          height: imageSize.height,
+          thumbWidth: thumbImageSize.width,
+          thumbHeight: thumbImageSize.height,
+          path: photo.path,
+          thumbPath: photo.thumbPath,
+          product: response._id
+        }
+        return await this.productPhotoRepository.create(photoData)
+      })
+    }
     return response
   }
 }

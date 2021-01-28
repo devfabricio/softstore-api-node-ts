@@ -2,9 +2,12 @@ import { Document, Schema, model } from 'mongoose'
 import { IProductResponse } from '@modules/products/infra/schemas/product'
 
 export interface IProductPhotoModel {
-  url: string
+  path: string
+  thumbPath: string
   width: number
   height: number
+  thumbWidth: number
+  thumbHeight: number
   product: string | IProductResponse
 }
 
@@ -15,7 +18,11 @@ export interface IProductPhotoResponse extends IProductPhotoModel {
 export interface IProductPhotoDocument extends IProductPhotoModel, Document {}
 
 const ProductPhotoSchema = new Schema({
-  url: {
+  path: {
+    type: String,
+    required: true
+  },
+  thumbPath: {
     type: String,
     required: true
   },
@@ -24,6 +31,14 @@ const ProductPhotoSchema = new Schema({
     required: true
   },
   height: {
+    type: Number,
+    required: true
+  },
+  thumbWidth: {
+    type: Number,
+    required: true
+  },
+  thumbHeight: {
     type: Number,
     required: true
   },
