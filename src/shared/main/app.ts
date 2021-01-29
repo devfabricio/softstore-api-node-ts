@@ -50,7 +50,7 @@ class App {
     this.server = createServer(this.app)
     this.io = new SocketIO.Server(this.server, {
       cors: {
-        origin: ['http://localhost:3000', 'http://localhost:3001']
+        origin: [`${process.env.DASHBOARD_URL}`, `${process.env.API_URL}`]
       }
     })
   }

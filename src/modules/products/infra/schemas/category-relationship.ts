@@ -2,12 +2,13 @@ import { Document, Schema, model } from 'mongoose'
 import { ICategoryResponse } from '@modules/products/infra/schemas/category'
 
 export interface ICategoryRelationshipModel {
-  category: string | ICategoryResponse
-  parent?: string | ICategoryResponse
+  category: ICategoryResponse | string
+  parent?: ICategoryResponse | string
   count: number
 }
 
 export interface ICategoryRelationshipResponse extends ICategoryRelationshipModel {
+  level?: number
   _id: string
 }
 
@@ -27,6 +28,10 @@ const OptionSchema = new Schema({
   count: {
     type: Number,
     required: true
+  },
+  level: {
+    type: Number,
+    required: false
   }
 }, { timestamps: true })
 

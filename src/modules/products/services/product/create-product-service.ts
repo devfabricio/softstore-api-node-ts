@@ -86,8 +86,8 @@ export default class CreateProductService {
 
     if (photos) {
       photos.map(async (photo: { path: string, thumbPath: string }) => {
-        const imageSize = await getImageSize(`https://saboreio-storage.s3.amazonaws.com/${photo.path}`)
-        const thumbImageSize = await getImageSize(`https://saboreio-storage.s3.amazonaws.com/${photo.thumbPath}`)
+        const imageSize = await getImageSize(`${process.env.S3_URL_PREFIX}${photo.path}`)
+        const thumbImageSize = await getImageSize(`${process.env.S3_URL_PREFIX}${photo.thumbPath}`)
         const photoData: IProductPhotoModel = {
           width: imageSize.width,
           height: imageSize.height,
