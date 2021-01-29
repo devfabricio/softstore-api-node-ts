@@ -6,5 +6,6 @@ export default interface IProductCustomizedTextRepository {
   findById(id: string): Promise<IProductCustomizedTextResponse>
   findByProduct(productId: string): Promise<IProductCustomizedTextResponse[]>
   delete (id: string): Promise<boolean>
+  deleteMany (productId: string): Promise<boolean>
   save (data: IProductCustomizedTextModel): Promise<IProductCustomizedTextResponse>
 }

@@ -18,6 +18,11 @@ export default class ProductCategoryRepository implements IProductCategoryReposi
     return true
   }
 
+  async deleteMany (productId: string): Promise<boolean> {
+    await this.repository.deleteMany({ product: productId })
+    return true
+  }
+
   async find (): Promise<IProductCategoryResponse[]> {
     return this.repository.find()
   }

@@ -6,5 +6,6 @@ export default interface IProductSpecificationRepository {
   findById(id: string): Promise<IProductSpecificationResponse>
   findByProduct(productId: string): Promise<IProductSpecificationResponse[]>
   delete (id: string): Promise<boolean>
+  deleteMany (productId: string): Promise<boolean>
   save (data: IProductSpecificationModel): Promise<IProductSpecificationResponse>
 }

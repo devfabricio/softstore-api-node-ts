@@ -18,6 +18,11 @@ export default class ProductCustomizedImageGroupRelationRepository implements IP
     return true
   }
 
+  async deleteMany (productId: string): Promise<boolean> {
+    await this.repository.deleteMany({ product: productId })
+    return true
+  }
+
   async find (): Promise<IProductCustomizedImageGroupRelationResponse[]> {
     return this.repository.find()
   }

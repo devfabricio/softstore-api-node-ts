@@ -18,6 +18,11 @@ export default class ProductCustomizedTextRepository implements IProductCustomiz
     return true
   }
 
+  async deleteMany (productId: string): Promise<boolean> {
+    await this.repository.deleteMany({ product: productId })
+    return true
+  }
+
   async find (): Promise<IProductCustomizedTextResponse[]> {
     return this.repository.find()
   }

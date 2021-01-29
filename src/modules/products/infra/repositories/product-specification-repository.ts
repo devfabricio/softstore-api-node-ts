@@ -18,6 +18,11 @@ export default class ProductSpecificationRepository implements IProductSpecifica
     return true
   }
 
+  async deleteMany (productId: string): Promise<boolean> {
+    await this.repository.deleteMany({ product: productId })
+    return true
+  }
+
   async find (): Promise<IProductSpecificationResponse[]> {
     return this.repository.find()
   }

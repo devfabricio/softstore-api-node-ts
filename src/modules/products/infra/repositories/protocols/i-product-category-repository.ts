@@ -6,5 +6,6 @@ export default interface IProductCategoryRepository {
   findByProduct(productId: string): Promise<IProductCategoryResponse[]>
   findById(id: string): Promise<IProductCategoryResponse>
   delete (id: string): Promise<boolean>
+  deleteMany (productId: string): Promise<boolean>
   save (data: IProductCategoryModel): Promise<IProductCategoryResponse>
 }
