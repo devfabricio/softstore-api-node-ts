@@ -44,7 +44,7 @@ const UserSchema = new Schema({
   messageInbox: {
     type: Schema.Types.ObjectId,
     ref: 'MessageInbox',
-    required: true
+    required: false
   }
 }, { timestamps: true })
 
