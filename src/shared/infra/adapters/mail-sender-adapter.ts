@@ -1,13 +1,10 @@
 import nodemailer, { Transporter } from 'nodemailer'
-import { inject, injectable } from 'tsyringe'
 import IMailSenderAdapter from '@shared/infra/adapters/protocols/i-mail-sender-adapter'
 import ISendEmailDTO from '@shared/infra/adapters/dtos/i-send-email-dto'
 import IMailTemplateAdapter from '@shared/infra/adapters/protocols/i-mail-template-adapter'
 
-@injectable()
 export default class MailSenderAdapter implements IMailSenderAdapter {
   constructor (
-    @inject('MailTemplateAdapter')
     private readonly mailTemplateAdapter: IMailTemplateAdapter) {}
 
   async send ({ to, from, subject, templateData }: ISendEmailDTO): Promise<void> {

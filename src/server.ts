@@ -1,5 +1,5 @@
 import 'express-async-errors'
-import app from './app'
+import app from '@shared/main/app'
 import 'dotenv/config'
 
 app.server.listen(app.PORT, function () {

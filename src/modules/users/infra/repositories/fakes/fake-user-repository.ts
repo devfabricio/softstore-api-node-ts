@@ -23,4 +23,13 @@ export class FakeUserRepository implements IUserRepository {
     this.users[findIndex] = user
     return user
   }
+
+  async delete (id: string): Promise<boolean> {
+    await this.users.filter(user => user._id !== id)
+    return false
+  }
+
+  async find (): Promise<IResponseUserModel[]> {
+    return this.users
+  }
 }

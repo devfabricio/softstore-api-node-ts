@@ -19,7 +19,7 @@ export default class FakeProductRepository implements IProductRepository {
   }
 
   async findByCategory (category: string): Promise<IProductResponse[]> {
-    return this.products.filter(product => product.category === category)
+    return this.products.filter(product => product._id === category)
   }
 
   async findById (id: string): Promise<IProductResponse> {
@@ -34,5 +34,10 @@ export default class FakeProductRepository implements IProductRepository {
     const findIndex = this.products.findIndex(findUser => findUser._id === product._id)
     this.products[findIndex] = product
     return product
+  }
+
+  async delete (id: string): Promise<boolean> {
+    await this.products.filter(product => product._id !== id)
+    return true
   }
 }

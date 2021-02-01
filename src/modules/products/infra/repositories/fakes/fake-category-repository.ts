@@ -1,5 +1,5 @@
 import ICategoryRepository from '@modules/products/infra/repositories/protocols/i-category-repository'
-import { ICategoryResponse } from '@modules/products/infra/schemas/category'
+import { ICategoryModel, ICategoryResponse } from '@modules/products/infra/schemas/category'
 
 export default class FakeCategoryRepository implements ICategoryRepository {
   private readonly categoryRepository: ICategoryResponse[] = []
@@ -8,8 +8,8 @@ export default class FakeCategoryRepository implements ICategoryRepository {
     return this.categoryRepository
   }
 
-  async create (name: string, slug: string): Promise<ICategoryResponse> {
-    const productPrimaryCategory: ICategoryResponse = { _id: 'any_category_id', name, slug, productCounter: 0 }
+  async create ({ name, productCounter, slug }: ICategoryModel): Promise<ICategoryResponse> {
+    const productPrimaryCategory: ICategoryResponse = { _id: 'any_category_id', name, slug, productCounter }
     this.categoryRepository.push(productPrimaryCategory)
     return productPrimaryCategory
   }
@@ -30,5 +30,9 @@ export default class FakeCategoryRepository implements ICategoryRepository {
     const findIndex = this.categoryRepository.findIndex(findUser => findUser._id === category._id)
     this.categoryRepository[findIndex] = category
     return category
+  }
+
+  async findBySlug(slug: string): Promise<ICategoryResponse> {
+    return this.categoryRepository.find(category => category.slug === slug)
   }
 }
