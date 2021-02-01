@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "start": "node -r ts-node/register -r tsconfig-paths/register dist/server.js",
+    "start": "node dist/server.js",
     "dev:server": "ts-node -r tsconfig-paths/register src/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
@@ -25,6 +25,7 @@
     "handlebars": "^4.7.6",
     "image-size": "^0.9.3",
     "jsonwebtoken": "^8.5.1",
+    "module-alias": "^2.2.2",
     "mongodb": "^3.6.3",
     "mongoose": "^5.10.16",
     "nodemailer": "^6.4.16",
@@ -73,5 +74,10 @@
     "tsconfig-paths": "^3.9.0",
     "tspath": "^1.3.7",
     "typescript": "^4.0.5"
+  },
+  "_moduleAliases": {
+    "@modules": "dist/modules",
+    "@config": "dist/config",
+    "@shared": "dist/shared"
   }
 }

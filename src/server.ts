@@ -1,3 +1,4 @@
+import 'module-alias/register'
 import 'express-async-errors'
 import app from '@shared/main/app'
 import 'dotenv/config'
