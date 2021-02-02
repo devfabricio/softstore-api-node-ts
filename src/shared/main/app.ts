@@ -25,8 +25,19 @@ class App {
   }
 
   private config (): void {
+    const whitelist = ['https://admin.sonhadeira.com.br', 'https://ipatinga.net']
+    const corsOptions = {
+      origin: function (origin, callback) {
+        if (whitelist.includes(origin)) {
+          callback(null, true)
+        } else {
+          callback(new Error('Not allowed by CORS'))
+        }
+      }
+    }
+
     this.app = express()
-    this.app.use(cors())
+    this.app.use(cors(corsOptions))
     this.app.use(express.json())
   }
 
