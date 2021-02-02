@@ -25,6 +25,7 @@ import productCustomizedTextRouter from '@modules/products/routes/product-custom
 import productCategoryRouter from '@modules/products/routes/product-category.routes'
 import productCustomizedImageGroupRelationRouter
   from '@modules/products/routes/product-customized-image-group-relation.routes'
+import appDataRouter from '@modules/app-data/routes/app-data.routes'
 
 const routes = Router()
 
@@ -51,6 +52,7 @@ routes.use('/message', messageRouter)
 routes.use('/message-inbox', messageInboxRouter)
 routes.use('/password', passwordRouter)
 routes.use('/options', settingsRouter)
+routes.use('/app-data', appDataRouter)
 routes.use('/cart-item', cartItemRouter)
 
 export default routes
