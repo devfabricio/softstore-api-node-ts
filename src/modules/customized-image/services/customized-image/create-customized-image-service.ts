@@ -17,7 +17,6 @@ export default class CreateCustomizedImageService {
     }
 
     const { url, thumbUrl } = body
-    console.log(body)
     const image: ICustomizedImageModel = { url, thumbUrl, height: 0, width: 0, thumbWidth: 0, thumbHeight: 0 }
 
     const imageSize = await getImageSize(url)
@@ -26,7 +25,6 @@ export default class CreateCustomizedImageService {
     image.height = imageSize.height
     image.thumbWidth = thumbImageSize.width
     image.thumbHeight = thumbImageSize.height
-    console.log(image)
 
     return await this.customizedImageRepository.create(image)
   }

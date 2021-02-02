@@ -20,8 +20,6 @@ export default class ListCategoryRelationshipService {
     const orderParents = (parentCategoryRelationship: IResponse, level: number): void => {
       parentCategoryRelationship.level = level
       categoriesRelationship.push(parentCategoryRelationship)
-      console.log(response)
-      console.log(response.filter((catRel: IResponse) => catRel.parent?._id === parentCategoryRelationship.category._id))
       const children: IResponse[] = response.filter((catRel: IResponse) => {
         return catRel.parent?._id === parentCategoryRelationship.category._id
       }) as IResponse[]

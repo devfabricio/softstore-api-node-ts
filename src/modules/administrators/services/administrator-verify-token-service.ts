@@ -16,12 +16,9 @@ class AdministratorVerifyTokenService {
     }
     const { token } = body
     try {
-      const decoded = verify(token, authConfig.jwt.admin_secret)
-      console.log(decoded)
+      verify(token, authConfig.jwt.admin_secret)
       return { authenticated: true }
     } catch (error) {
-      console.log(error)
-      console.log(false)
       return { authenticated: false }
     }
   }

@@ -26,7 +26,6 @@ export class UserRepository implements IUserRepository {
   }
 
   async save (user: IResponseUserModel): Promise<IResponseUserModel> {
-    console.log(user)
     return this.repository.updateOne({ _id: user._id },{ $set: { ...user } })
   }
 

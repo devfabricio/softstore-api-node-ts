@@ -18,7 +18,6 @@ export default class CreateCategoryService {
     if (!name) {
       throw new AppError('Missing param: name')
     }
-    console.log(body)
     const categoryName = this.textFormatter.trim(name)
     const checkIfCategoryExists = await this.categoryRepository.findByName(categoryName)
     if (checkIfCategoryExists) {

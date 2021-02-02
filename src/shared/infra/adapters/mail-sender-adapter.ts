@@ -21,8 +21,6 @@ export default class MailSenderAdapter implements IMailSenderAdapter {
       subject,
       html: await this.mailTemplateAdapter.parse(templateData)
     })
-    console.log('Message sent: %s', message.messageId)
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message))
   }
 
   private async getClient (): Promise<Transporter> {
