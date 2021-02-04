@@ -13,6 +13,8 @@ import IProductCustomizedImageGroupRelationRepository
   from '@modules/products/infra/repositories/protocols/i-product-customized-image-group-relation-repository'
 import { getImageSize } from '@shared/utils/image-size'
 import { IProductPhotoModel } from '@modules/products/infra/schemas/product-photo'
+import ICategoryRelationshipRepository
+  from '@modules/products/infra/repositories/protocols/i-category-relationship-repository'
 
 export default class UpdateProductService {
   constructor (
@@ -22,6 +24,7 @@ export default class UpdateProductService {
     private readonly productCustomizedTextRepository: IProductCustomizedTextRepository,
     private readonly productCategoryRepository: IProductCategoryRepository,
     private readonly productPhotoRepository: IProductPhotoRepository,
+    private readonly categoryRelationshipRepository: ICategoryRelationshipRepository,
     private readonly productCustomizedImageGroupRelationRepository: IProductCustomizedImageGroupRelationRepository,
     private readonly textFormatter: ITextFormatter) {}
 
@@ -70,9 +73,18 @@ export default class UpdateProductService {
     if (product.packingWidth) product.packingWidth = packingWidth
 
     if (category) {
+      const productCategories = await this.productCategoryRepository.findByProduct(product._id)
+      for (const productCategory of productCategories) {
+        const categoryRelationship = await this.categoryRelationshipRepository.findByCategory(String(productCategory.category))
+        categoryRelationship.count -= 1
+        await this.categoryRelationshipRepository.save(categoryRelationship)
+      }
       await this.productCategoryRepository.deleteMany(product._id)
       category.map(async (cat: string) => {
         if (cat.length > 0) {
+          const categoryRelationship = await this.categoryRelationshipRepository.findByCategory(cat)
+          categoryRelationship.count += 1
+          await this.categoryRelationshipRepository.save(categoryRelationship)
           return await this.productCategoryRepository.create({ category: cat, product: product._id })
         }
       })
@@ -97,7 +109,7 @@ export default class UpdateProductService {
     }
 
     if (imageGroup) {
-      await this.productCustomizedImageGroupRelationRepository.deleteMany(product._id)
+      await this.productCustomizedImageGroupRelationRepository.deleteManyByProduct(product._id)
       imageGroup.map(async (group: string) => {
         if (group.length > 0) {
           return await this.productCustomizedImageGroupRelationRepository.create({ group: group, product: product._id })

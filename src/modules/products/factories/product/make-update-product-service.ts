@@ -8,6 +8,7 @@ import ProductSpecificationRepository from '@modules/products/infra/repositories
 import ProductCustomizedTextRepository from '@modules/products/infra/repositories/product-customized-text-repository'
 import ProductCustomizedImageGroupRelationRepository
   from '@modules/products/infra/repositories/product-customized-image-group-relation-repository'
+import CategoryRelationshipRepository from '@modules/products/infra/repositories/category-relationship-repository'
 
 export const makeUpdateProductService = (): UpdateProductService => {
   const productRepository = new ProductRepository()
@@ -18,8 +19,9 @@ export const makeUpdateProductService = (): UpdateProductService => {
   const productSpecificationRepository = new ProductSpecificationRepository()
   const productCustomizedTextController = new ProductCustomizedTextRepository()
   const productCustomizedImageGroupRelationRepository = new ProductCustomizedImageGroupRelationRepository()
+  const categoryRelationshipRepository = new CategoryRelationshipRepository()
 
   return new UpdateProductService(productRepository, productPrimaryCategoryRepository,
     productSpecificationRepository, productCustomizedTextController, productCategoryRepository,
-    productPhotoRepository, productCustomizedImageGroupRelationRepository, textFormatter)
+    productPhotoRepository, categoryRelationshipRepository, productCustomizedImageGroupRelationRepository, textFormatter)
 }

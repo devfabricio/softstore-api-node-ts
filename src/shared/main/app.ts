@@ -25,7 +25,14 @@ class App {
   }
 
   private config (): void {
-    const whitelist = ['https://admin.sonhadeira.com.br', 'https://ipatinga.net']
+    const whitelist = ['https://admin.sonhadeira.com.br',
+      'https://www.sonhadeira.com.br',
+      'https://sonhadeira.com.br',
+      'https://ipatinga.net']
+    if (process.env.ENVIRONMENT === 'development') {
+      whitelist.push('http://localhost:3000')
+      whitelist.push('http://localhost:3001')
+    }
     const corsOptions = {
       origin: function (origin, callback) {
         if (whitelist.includes(origin)) {

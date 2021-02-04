@@ -31,6 +31,8 @@ export default class CategoryRelationshipRepository implements ICategoryRelation
   }
 
   async save (data: ICategoryRelationshipResponse): Promise<ICategoryRelationshipResponse> {
-    return this.repository.updateOne({ _id: data._id },{ $set: { ...data } })
+    const _id = data._id
+    delete data._id
+    return this.repository.updateOne({ _id },{ $set: { ...data } })
   }
 }

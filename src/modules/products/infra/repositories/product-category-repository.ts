@@ -23,12 +23,22 @@ export default class ProductCategoryRepository implements IProductCategoryReposi
     return true
   }
 
+  async deleteByProductAndCategory (productId: string, categoryId: string): Promise<boolean> {
+    const response = await this.repository.findOne().and([{ category: categoryId }, { product: productId }])
+    await this.repository.findByIdAndDelete(response._id)
+    return true
+  }
+
   async find (): Promise<IProductCategoryResponse[]> {
     return this.repository.find()
   }
 
   async findById (id: string): Promise<IProductCategoryResponse> {
     return this.repository.findById(id)
+  }
+
+  async findByCategory (categoryId: string): Promise<IProductCategoryResponse[]> {
+    return this.repository.find({ category: categoryId })
   }
 
   async findByProduct (productId: string): Promise<IProductCategoryResponse[]> {

@@ -13,6 +13,8 @@ import IProductCategoryRepository from '@modules/products/infra/repositories/pro
 import IProductPhotoRepository from '@modules/products/infra/repositories/protocols/i-product-photo-repository'
 import { IProductPhotoModel } from '@modules/products/infra/schemas/product-photo'
 import { getImageSize } from '@shared/utils/image-size'
+import ICategoryRelationshipRepository
+  from '@modules/products/infra/repositories/protocols/i-category-relationship-repository'
 
 export default class CreateProductService {
   constructor (
@@ -22,6 +24,7 @@ export default class CreateProductService {
     private readonly productCustomizedTextRepository: IProductCustomizedTextRepository,
     private readonly productCategoryRepository: IProductCategoryRepository,
     private readonly productPhotoRepository: IProductPhotoRepository,
+    private readonly categoryRelationshipRepository: ICategoryRelationshipRepository,
     private readonly productCustomizedImageGroupRelationRepository: IProductCustomizedImageGroupRelationRepository,
     private readonly textFormatter: ITextFormatter) {
   }
@@ -55,6 +58,9 @@ export default class CreateProductService {
     if (category) {
       category.map(async (cat: string) => {
         if (cat.length > 0) {
+          const categoryRelationship = await this.categoryRelationshipRepository.findByCategory(cat)
+          categoryRelationship.count += 1
+          await this.categoryRelationshipRepository.save(categoryRelationship)
           return await this.productCategoryRepository.create({ category: cat, product: response._id })
         }
       })

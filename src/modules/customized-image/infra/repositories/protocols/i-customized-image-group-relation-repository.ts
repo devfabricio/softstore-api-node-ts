@@ -6,5 +6,7 @@ export default interface ICustomizedImageGroupRelationRepository {
   findByGroup (group: string): Promise<ICustomizedImageGroupRelationResponse[]>
   findById(id: string): Promise<ICustomizedImageGroupRelationResponse>
   delete (id: string): Promise<boolean>
+  deleteManyByGroup(groupId: string): Promise<boolean>
+  deleteManyByImage(imageId: string): Promise<boolean>
   save (data: ICustomizedImageGroupRelationModel): Promise<ICustomizedImageGroupRelationResponse>
 }

@@ -13,27 +13,7 @@ export default class CategoryRepository implements ICategoryRepository {
   }
 
   async find (): Promise<ICategoryResponse[]> {
-    return this.repository.find().populate({
-      path: 'parent',
-      populate: [{
-        path: 'parent',
-        populate: {
-          path: 'parent',
-          populate: {
-            path: 'parent',
-            populate: {
-              path: 'parent',
-              populate: {
-                path: 'parent',
-                populate: {
-                  path: 'parent'
-                }
-              }
-            }
-          }
-        }
-      }]
-    })
+    return this.repository.find()
   }
 
   async create (data: ICategoryModel): Promise<ICategoryResponse> {

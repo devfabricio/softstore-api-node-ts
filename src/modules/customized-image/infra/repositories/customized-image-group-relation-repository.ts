@@ -18,6 +18,16 @@ export default class CustomizedImageGroupRelationRepository implements ICustomiz
     return true
   }
 
+  async deleteManyByGroup (groupId: string): Promise<boolean> {
+    await this.repository.deleteMany({ group: groupId })
+    return true
+  }
+
+  async deleteManyByImage (imageId: string): Promise<boolean> {
+    await this.repository.deleteMany({ image: imageId })
+    return true
+  }
+
   async find (): Promise<ICustomizedImageGroupRelationResponse[]> {
     return this.repository.find()
   }
@@ -26,8 +36,8 @@ export default class CustomizedImageGroupRelationRepository implements ICustomiz
     return this.repository.findById(id)
   }
 
-  async findByGroup (group: string): Promise<ICustomizedImageGroupRelationResponse[]> {
-    return this.repository.find({ group })
+  async findByGroup (groupId: string): Promise<ICustomizedImageGroupRelationResponse[]> {
+    return this.repository.find({ group: groupId })
   }
 
   async save (data: ICustomizedImageGroupRelationResponse): Promise<ICustomizedImageGroupRelationResponse> {

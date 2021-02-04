@@ -14,7 +14,6 @@ categoryRouter.get('/s/:slug', categoryController.show)
 categoryRouter.delete('/:id', isAdminAuth, categoryController.delete)
 categoryRouter.post('/', isAdminAuth, categoryController.create)
 categoryRouter.put('/', isAdminAuth, categoryController.update)
-categoryRouter.put('/', isAdminAuth, categoryController.update)
 categoryRouter.put('/add-product-quantity', isAdminAuth, addProductQuantityInCategoryController.update)
 
 export default categoryRouter
